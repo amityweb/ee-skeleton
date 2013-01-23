@@ -1,0 +1,31 @@
+{embed="_inc/.header"}
+
+	<h1>Search Results</h1>
+	
+	<p>Your search for <i>{exp:search:keywords}</i> returned the following {exp:search:total_results} results:</p>
+
+	{exp:search:search_results}
+		
+		<div class="row">
+			{if channel_short_name == 'content'}
+				<a href="/{url_title}">{title}</a>
+			{/if}
+			{if channel_short_name == 'news'}
+				<a href="/{channel_short_name}/article/{url_title}">{title}</a>
+			{/if}
+			{if channel_short_name == 'products'}
+				<a href="/{channel_short_name}/{categories}{category_url_title}{/categories}/{url_title}">{title}</a>
+			{/if}
+			{if channel_short_name == 'downloads'}
+				<a href="/{channel_short_name}/{category}#{url_title}">{title}</a>
+			{/if}
+			<p class="excerpt">{excerpt}</p>
+		</div>
+		
+		{paginate}
+			<p>Page {current_page} of {total_pages} pages {pagination_links}</p>
+		{/paginate}
+	
+	{/exp:search:search_results}
+
+{embed="_inc/.footer"}

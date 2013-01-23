@@ -1,0 +1,33 @@
+{embed="_inc/.header"}
+	
+	<h1>Login</h1>
+	{exp:member:login_form return="hotels/my-hotels" id="publishForm"}
+	<fieldset class="uniform">
+		
+		<p>
+		        <label for="username">Username</label>
+		        <input type="text" name="username" id="username" value="" maxlength="32" size="25" class="inputbox">
+		</p>
+		<p>
+		        <label for="password">Password</label>
+		        <input type="password" name="password" id="password" value="" maxlength="32" size="25" class="inputbox">
+		</p>
+		
+	</fieldset>
+	
+	{if auto_login}
+		<p>
+			<input type="checkbox" name="auto_login" id="auto_login" value="1" />
+			<label for="auto_login">Remember me</label>
+		</p>
+	{/if}
+	
+	<p>
+		<label><input type="submit" name="submit" value="Submit"></label>
+		<a href="{path='members/forgot_password'}">Forgot your password?</a>
+	</p>
+	{/exp:member:login_form}
+	
+	<p>Not yet registered? <a href="{site_url}members/register">Sign up here</a> to add your hotels now.</p> 
+
+{embed="_inc/.footer"}

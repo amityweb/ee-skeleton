@@ -1,0 +1,20 @@
+@import url("style.css");
+
+
+/****************************************************
+Reset Elements in back to default
+*****************************************************/
+p{ margin: 0px 0px 10px 0px;}
+ul,ol{ padding: 1.12em 1.5em }
+li{ padding-left: 0.1em; list-style: disc; }
+ol li{ list-style:decimal }
+
+body
+{
+	background: #ffffff;
+}
+
+div
+{
+	border: 1px dotted: #cccccc;
+}

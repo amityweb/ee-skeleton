@@ -1,0 +1,55 @@
+<div class="latest-news">
+
+	{exp:channel:entries channel="news" limit="{embed:limit}" dynamic="no" paginate="bottom" disable="categories|member_data"}
+		<div class="row">
+			{if news_image}
+				<div class="col threecol wide-only">
+					{news_image}
+						<img src="{url:summary}" width="145" />
+					{/news_image}
+				</div>
+			{/if}
+			<div class="col{if news_image} ninecol{/if}">
+				<p class="h3"><a href="/news/article/{url_title}" title="{title}">{title}</a></p>
+				<p>{exp:low_widont}{news_summary}{/exp:low_widont}</p>
+				<a href="/news/{url_title}" title="{title}">Find out more</a>
+			</div>
+			
+		</div>
+		
+		{paginate}
+			{if embed:paginate == "true"}
+				<div class="pagination">
+					Page {current_page} of {total_pages} <br />
+					{pagination_links}
+						{first_page}
+							<a href="{pagination_url}">First</a>
+						{/first_page}
+		
+						{previous_page}
+							<a href="{pagination_url}">Previous</a>
+						{/previous_page}
+		
+						{page}
+							{if current_page}
+								<strong>{pagination_page_number}</strong>
+							{if:else}
+								<a href="{pagination_url}">{pagination_page_number}</a>
+							{/if}
+						{/page}
+		
+						{next_page}
+							<a href="{pagination_url}">Next</a>
+						{/next_page}
+		
+						{last_page}
+							<a href="{pagination_url}">Last</a>
+						{/last_page}
+					{/pagination_links}
+				</div>
+			{/if}
+		{/paginate}
+		
+	{/exp:channel:entries}
+	
+</div>
