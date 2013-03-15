@@ -1,0 +1,9 @@
+var tinyMCELinkList = new Array(
+{exp:channel:entries channel="content" url_title="not home" disable="custom_fields|categories|member_data|pagination" dynamic="no" orderby="title" sort="asc"}
+["{title}", "/{url_title}"],
+{/exp:channel:entries}
+["--News--", ""],
+{exp:channel:entries channel="news" disable="custom_fields|categories|member_data|pagination" dynamic="no" orderby="title" sort="asc" backspace="2"}
+["{title}", "/news/article/{url_title}"],
+{/exp:channel:entries}
+);

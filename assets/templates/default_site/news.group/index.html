@@ -1,13 +1,29 @@
+<?php
+$entry = "{segment_2}";
+$list = false;
+if ( $entry == "" || preg_match("#^P(\d+)|/P(\d+)#",$entry) )
+{ 
+	$list = true;
+}
+?>
+
 {embed="_inc/.header"}
 
 	<div class="row">
 		{exp:channel:entries channel="content" dynamic="no" url_title="{segment_1}" disable="categories|member_data|pagination"}
-			<h1>{title}</h1>
+			<h1>{site_name} News</h1>
 			{content_body}
 		{/exp:channel:entries}
 	</div>
 	
+<?php if($list) : ?>
+	
 	{embed="news/.list" limit="10" paginate="true"}
 	
+<?php else : ?>
+	
+	{embed="news/.entry"}
+	
+<?php endif; ?>
 
 {embed="_inc/.footer"}
