@@ -1,0 +1,34 @@
+{embed="_inc/.header"}
+
+	<div class="row">
+		
+		{exp:channel:entries channel="content" url_title="{segment_1}" dynamic="no" disable="categories|member_data|pagination"}
+			
+			<h1>{title}</h1>
+			{content_body}
+			
+		{/exp:channel:entries}
+		
+	</div>
+		
+	<div id="sitemap" class="left twelvecol">
+		{exp:taxonomy:nav tree_id="2" display_root="no"}
+		
+			<a href="{node_url}">{node_title}</a>
+			
+			{if node_title == 'News'}
+				<ul>
+				{exp:channel:entries channel="news" disable="categories|custom_fields|member_data|pagination" dynamic="no"}
+					<li><a href="{site_url}news/{url_title}">{title}</a></li>
+				{/exp:channel:entries} 
+				</ul>
+			{/if}
+		
+		{/exp:taxonomy:nav}
+		
+		{exp:taxonomy:nav tree_id="1" display_root="no"}
+			<a href="{node_url}">{node_title}</a>
+		{/exp:taxonomy:nav}
+	</div>
+	
+{embed="_inc/.footer"}

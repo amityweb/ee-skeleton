@@ -4,7 +4,7 @@
 
 	</div>
 	
-	<div id="footer" class="row">
+	<div id="footer" class="left twelvecol">
 	
 		<div id="footer-inner" class="inner">
 	
@@ -14,7 +14,11 @@
 				{/exp:taxonomy:nav}
 			</div>
 	
-			<div id="footer-copyright"></div>
+			<div id="footer-copyright">
+				{exp:channel:entries channel="snippets" url_title="copyright" dynamic="no" disable="categories|member_data|pagination"}
+				{content_body}
+			{/exp:channel:entries}
+			</div>
 			
 		</div>
 		

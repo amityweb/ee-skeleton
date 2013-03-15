@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+{!-- Taxonomy Menus List --}
+{exp:taxonomy:nav tree_id="2" style="linear" display_root="no"}
+<url> 
+	<loc>{node_url}</loc> 
+	<lastmod>
+	{if node_entry_id}
+		{exp:channel:entries entry_id="{node_entry_id}" dynamic="no" disable="custom_fields|categories|member_data|pagination"}
+			{gmt_edit_date format="{DATE_W3C}"}
+		{/exp:channel:entries}
+	{/if}
+	</lastmod>
+	<changefreq>weekly</changefreq> 
+	<priority>0.5</priority> 
+</url>
+
+{if node_title == 'News'}
+	{!-- News Entries --}
+	{exp:channel:entries channel="news" dynamic="no" disable="custom_fields|categories|member_data|pagination"} 
+	<url> 
+		<loc>{site_url}news/{url_title}</loc> 
+		<lastmod>{gmt_edit_date format="{DATE_W3C}"}</lastmod> 
+		<changefreq>weekly</changefreq> 
+		<priority>0.6</priority> 
+	</url> 
+	{/exp:channel:entries}
+{/if}
+
+{/exp:taxonomy:nav}
+
+{exp:taxonomy:nav tree_id="1" style="linear" display_root="no"}
+<url> 
+	<loc>{node_url}</loc> 
+	<lastmod>
+	{if node_entry_id}
+		{exp:channel:entries entry_id="{node_entry_id}" dynamic="no" disable="custom_fields|categories|member_data|pagination"}
+			{gmt_edit_date format="{DATE_W3C}"}
+		{/exp:channel:entries}
+	{/if}
+	</lastmod> 
+	<changefreq>weekly</changefreq> 
+	<priority>0.4</priority> 
+</url>
+{/exp:taxonomy:nav}
+
+</urlset> 

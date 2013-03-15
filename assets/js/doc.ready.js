@@ -1,44 +1,49 @@
 $(document).ready(function()
 {	
-	/******************
-	header-slideshow
-	******************/
-	if( $('#home-slideshow').length > 0 )
+	/******************************
+	Main Image Slideshow
+	******************************/
+	if( $('#slideshow-container').length > 0 )
 	{
-	   	$('#home-slideshow').cycle({ 
-	   		fx:	  'fade', 
+		$('#slideshow-container').after
+		(
+			'<div id="slideshow-arrows"><a href="#" id="slideshow-prev"></a><a href="#" id="slideshow-next"></a></div><div id="slideshow-buttons-wrap"><div id="slideshow-buttons"></div></div>'
+		);
+		
+		$('#slideshow-container').cycle({ 
+			fx:	  'fade', 
 			timeout:  8000,
 			speed:  2000,
 			fastOnEvent:   500,
 			cleartype:  false,
 			pause: 1,
 			pauseOnPagerHover: 1,
-			pager:  '#home-slideshow-buttons',
-			next:	'#home-slideshow-next',
-			prev:	'#home-slideshow-prev',
+			pager:  '#slideshow-buttons',
+			next:	'#slideshow-next',
+			prev:	'#slideshow-prev',
 			pagerEvent: 'mouseover',
 			pagerAnchorBuilder: function(idx, slide)
 			{
 				return '<a href="#"><img src="/assets/images/slideshow/bullets.png" /></a>';
 			}
 		});
-		$('#home-slideshow-wrap').hover(
+		$('#slideshow-container').hover(
 			function()
 			{
 				//show nav arrows
-				$('#home-slideshow-arrows').fadeIn();
+				$('#slideshow-arrows').fadeIn();
 			},
 			function()
 			{
 				//hide nav arrows
-				$('#home-slideshow-arrows').fadeOut();
+				$('#slideshow-arrows').fadeOut();
 			}
 		);
 	}
 	
-	/******************
-	CONTACT FORM
-	******************/
+	/******************************
+	Contact Form
+	******************************/
 
 	if( $('form').length > 0 )
 	{
@@ -57,7 +62,7 @@ $(document).ready(function()
 						error += "Please complete your " + value + '<br/>';
 					}
 				});
-
+				
 				if(error)
 				{	
 					$('#form-message').html('<span class="error">'+error+'</span>');
@@ -82,9 +87,27 @@ $(document).ready(function()
 
 	}
 	
-	/******************
-	POPUPS - PRETTY PHOTO
-	******************/
+	/******************************
+	Responsive Menu
+	******************************/
+	$('#nav-button').toggle(
+		function()
+		{
+			$('#navigation-inner').fadeIn(100);
+			$('#nav-button').addClass("active");
+			return false;
+		},
+		function()
+		{
+			$('#navigation-inner').fadeOut(100);
+			$('#nav-button').removeClass("active");
+			return false;
+		}
+	);
+	
+	/******************************
+	Popups - prettyPhoto
+	******************************/
 	
 	$("a.popup").prettyPhoto(
 	{
@@ -93,9 +116,9 @@ $(document).ready(function()
 		theme: 'dark_rounded'
 	});
 	
-	/******************
+	/******************************
 	ios-viewport-scaling-bug-fix.js
-	******************/
+	******************************/
 	(function(doc)
 	{
 	 
@@ -116,9 +139,9 @@ $(document).ready(function()
 		}
 	}(document));
 	
-	/******************
+	/******************************
 	COOKIE NOTICE
-	******************/
+	******************************/
 	if(getCookie('show_cookie_message') != 'no')
 	{
 		$('#cookie_box').show();
@@ -133,6 +156,9 @@ $(document).ready(function()
 	
 });
 
+/******************************
+Functions
+******************************/
 function setCookie(cookie_name, value)
 {
 	document.cookie = cookie_name+ "=" + escape(value);
