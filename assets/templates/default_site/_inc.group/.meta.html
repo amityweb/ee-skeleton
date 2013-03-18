@@ -1,0 +1,32 @@
+{!-- PHP to determine if its a paginated page, and get the paginated number 
+--}<?php
+$entry = "{segment_2}";
+$list = false;
+if (preg_match("#^P(\d+)|/P(\d+)#",$entry,$matches) ) 
+{ 
+	$list = true;
+	$count = $matches[1];
+}
+?>
+{!-- If its a paginated page, use SEO Lite title_override as Site Name, Segment 1 and Pagination Number
+--}<?php if(isset($list) && $list) : ?>
+{exp:seo_lite use_last_segment="yes" friendly_segments="y" title_override="{site_name} <?php echo ucwords("{segment_1}");?> List #<?php echo $count;?>" default_keywords='' default_description='' }
+<?php endif; ?>
+{!-- If its a not paginated page, and not a page with custom titles, use the SEO Lite entries
+--}<?php if(!isset($list) || !$list) : ?>
+{if segment_2 != '' && segment_1 != 'shapers-index'}
+{exp:seo_lite use_last_segment="yes" friendly_segments="y" default_title='<?php echo ucwords("{segment_2}");?>' default_keywords='' default_description='' }
+{/if}
+{if segment_1 != '' &&  segment_2 == ''}
+{exp:seo_lite use_last_segment="yes" friendly_segments="y" default_title='<?php echo ucwords("{segment_1}");?>' default_keywords='' default_description='' }
+{/if}
+{if segment_1 == '' &&  segment_2 == ''}
+{exp:seo_lite url_title='home' default_keywords='' default_description='' }
+{/if}
+<?php endif; ?>
+{!-- Custom Redirects & Titles --}
+{if segment_1 == 'shapers-index' && segment_2 != ''}
+{exp:zoo_visitor:members entry_id="{segment_3}" member_group="7"}
+{exp:seo_lite default_title='<?php echo ucwords("{mbr_company}");?>' default_keywords='' default_description='' }
+{/exp:zoo_visitor:members}  
+{/if}
