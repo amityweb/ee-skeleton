@@ -24,9 +24,3 @@ if (preg_match("#^P(\d+)|/P(\d+)#",$entry,$matches) )
 {exp:seo_lite url_title='home' default_keywords='' default_description='' }
 {/if}
 <?php endif; ?>
-{!-- Custom Redirects & Titles --}
-{if segment_1 == 'shapers-index' && segment_2 != ''}
-{exp:zoo_visitor:members entry_id="{segment_3}" member_group="7"}
-{exp:seo_lite default_title='<?php echo ucwords("{mbr_company}");?>' default_keywords='' default_description='' }
-{/exp:zoo_visitor:members}  
-{/if}
