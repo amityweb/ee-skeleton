@@ -161,7 +161,9 @@ Functions
 ******************************/
 function setCookie(cookie_name, value)
 {
-	document.cookie = cookie_name+ "=" + escape(value);
+	var exdate = new Date();
+	exdate.setDate(exdate.getDate() + (365*25));
+	document.cookie = cookie_name + "=" + escape(value) + "; expires="+exdate.toUTCString();
 }
 
 function getCookie(cookie_name)
