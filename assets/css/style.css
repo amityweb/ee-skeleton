@@ -128,11 +128,6 @@ FORMS
 			float: right;
 		}
 
-#publishForm fieldset, .js #publishFormNoJS
-{
-	display: none;
-}
-
 /******************************
 SECTIONS
 ******************************/
