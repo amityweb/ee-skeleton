@@ -143,6 +143,13 @@ Up to Landscape Phone ****/
 		.col.sevencol,
 		.col.sixcol,
 		.col.fivecol	{	width: 98%;	}
+		
+		.col-wrap.tencol,
+		.col-wrap.ninecol,
+		.col-wrap.eightcol,
+		.col-wrap.sevencol,
+		.col-wrap.sixcol	{	width: 102%;	}
+		
 	.threecol			{	width: 50%;	}
 		.col.threecol	{	width: 48%;	}
 	
