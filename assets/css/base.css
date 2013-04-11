@@ -18,7 +18,7 @@ legend{font-size: 1.5em;padding:10px 0;}
 button,input,select,textarea{font-size:100%;margin:0;vertical-align:baseline;}
 button,input,label,select,textarea{display: inline-block;}
 label{line-height:2em;}
-input{line-height:2.5em;}
+input{padding: 10px;}
 button,input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;-webkit-appearance:button;line-height:normal;padding:8px;}
 button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}
 textarea{overflow:auto;vertical-align:top;resize:vertical;width:100%;}
@@ -81,6 +81,18 @@ GRID LAYOUT
 		.col.fourcol	{	width: 31.33%;	}
 		.col.threecol	{	width: 23%;		}
 		.col.twocol		{	width: 14.65%;	}
+	
+	.col-wrap
+	{
+		float: left;
+		margin: -1% 0;
+	}
+		.col-wrap.twelvecol	{	width: 102%;	}
+		.col-wrap.tencol	{	width: 85.35%;	}
+		.col-wrap.ninecol	{	width: 77%;		}
+		.col-wrap.eightcol	{	width: 68.6%;	}
+		.col-wrap.sevencol	{	width: 60.33%;	}
+		.col-wrap.sixcol	{	width: 52%;		}
 
 .right	{	float: right !important;	}
 .left	{	float: left !important;	}
@@ -211,14 +223,14 @@ FORMS
 .uniform textarea
 {
 	border: 1px solid #CACACA;
-	padding: 0 10px;
 	max-width: 350px;
 	width: 100%;
 }
 	.uniform select
 	{
 		height:2.5em;
-		padding:0;
+		padding-left:0;
+		padding-right:0;
 	}
 	.uniform textarea
 	{
