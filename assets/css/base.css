@@ -85,7 +85,7 @@ GRID LAYOUT
 	.col-wrap
 	{
 		float: left;
-		margin: -1% 0;
+		margin: 0 -1%;
 	}
 		.col-wrap.twelvecol	{	width: 102%;	}
 		.col-wrap.tencol	{	width: 85.35%;	}
