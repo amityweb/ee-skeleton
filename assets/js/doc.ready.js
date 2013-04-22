@@ -149,10 +149,10 @@ $(document).ready(function()
 
 	$('.cookie_box_close').click(function()
 	{
-		$('#cookie_box').animate({opacity:0 }, "slow");
+		$('#cookie_box').fadeOut("slow");
 		setCookie('show_cookie_message','no');
 		return false;
-	});	
+	});
 	
 });
 
