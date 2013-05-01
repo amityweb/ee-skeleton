@@ -13,7 +13,7 @@ body
 Reset Elements in Content back to default
 *****************************************************/
 
-#content p				{ margin: 0px 0px 10px 0px;}
+#content p				{ margin: 0 0 10px 0;}
 #content ul,#content ol	{ padding: 1.12em 1.5em }
 #content li				{ padding-left: 0.1em; list-style: disc; }
 #content ol li			{ list-style:decimal } 
@@ -378,14 +378,14 @@ MEDIA QUERY OVERRIDES
 Desktop Only *************/
 @media ( min-width : 769px )
 {
-	#navigation	{	display: block !important;	}
+	
 }
 
 /**************************
 Up to Tablet *************/
 @media ( max-width : 768px )
 {
-	
+	#header-main-menu > ul	{	display: block !important;	}
 }
 
 /**************************
@@ -399,43 +399,41 @@ Tablet and up ************/
 Up to Landscape Phone ****/
 @media ( max-width : 580px )
 {
-	#navigation
+	#header-main-menu
 	{
+		display: none;
 		position: fixed;
 		right: 2%;
 		top: 45px;
 		width: auto;
 		z-index: 500;
 	}
-		#navigation-inner
+		#header-main-menu ul
 		{
+			background: #f3f3f3;
 			display: none;
+			overflow: hidden;
+			width: 150px;
 		}
-			#navigation ul
+			#header-main-menu li a
 			{
-				background: #f3f3f3;
-				overflow: hidden;
+				border-bottom: 1px dotted #cfcfcf;
+				float: left;
+				padding: 5px;
 				width: 150px;
 			}
-				#navigation li a
+				#header-main-menu li ul
 				{
-					border-bottom: 1px dotted #cfcfcf;
-					float: left;
-					padding: 5px;
-					width: 150px;
+					display: block;
+					position: static;
 				}
-					#navigation li ul
+					#header-main-menu li li a,
+					#header-main-menu li:hover li a
 					{
-						display: block;
-						position: static;
+						border: 0;
+						font-size: 0.85em;
+						padding: 4px 2px 4px 15px;
 					}
-						#navigation li li a,
-						#navigation li:hover li a
-						{
-							border: 0;
-							font-size: 0.85em;
-							padding: 4px 2px 4px 15px;
-						}
 }
 
 /**************************

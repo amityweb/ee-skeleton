@@ -99,15 +99,16 @@ GRID LAYOUT
 		.col-wrap.sevencol	{	width: 60.33%;	}
 		.col-wrap.sixcol	{	width: 52%;		}
 
-.right	{	float: right !important;	}
-.left	{	float: left !important;	}
+.right			{	float: right !important;		}
+.left			{	float: left !important;			}
+.text-right		{	text-align: right;				}
+.text-left		{	text-align: left;				}
+.text-center	{	text-align: center;				}
+.center			{	margin: auto; overflow: hidden;	}
 
-/**************************
-Desktop Only *************/
-@media ( min-width : 769px )
-{
-	.nodesktop			{ display: none !important;	}
-}
+.nodesktop,
+.belowtab,
+#menu-toggle	{	display: none;					}
 
 /**************************
 Up to Tablet *************/
@@ -123,13 +124,8 @@ Up to Tablet *************/
 	.fulltab			{	width: 100% !important;	}
 		.col.fulltab	{	width: 98% !important;	}
 	.notab				{ display: none !important;	}
-}
-
-/**************************
-Tablet and up ************/
-@media ( min-width : 581px )
-{
-	.belowtab				{ display: none !important;	}
+	
+	.nodesktop			{ display: block;			}
 }
 
 /**************************
@@ -161,6 +157,9 @@ Up to Landscape Phone ****/
 	.fullland			{	width: 100% !important;	}
 		.col.fullland	{	width: 98% !important;	}
 	.noland				{	display: none !important;	}
+	
+	.belowtab,
+	#menu-toggle		{ display: block;			}
 }
 
 /**************************
@@ -173,9 +172,15 @@ Up to Portrait Phone *****/
 		.col.threecol	{	width: 98%;	}
 	.twocol				{	width: 50%;	}
 		.col.twocol		{	width: 48%;	}
+		
+		.col-wrap.tencol,
+		.col-wrap.ninecol,
+		.col-wrap.eightcol,
+		.col-wrap.sevencol,
+		.col-wrap.sixcol	{	margin: 0; width: 100%;	}
 	
-	.fullmob			{	width: 100% !important;	}
-		.col.fullmob	{	width: 98% !important;	}
+	.fullmob			{	width: 100% !important;		}
+		.col.fullmob	{	width: 98% !important;		}
 	.nomob				{	display: none !important;	}
 }
 
