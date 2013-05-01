@@ -90,17 +90,17 @@ $(document).ready(function()
 	/******************************
 	Responsive Menu
 	******************************/
-	$('#nav-button').toggle(
+	$('#menu-toggle').toggle(
 		function()
 		{
-			$('#navigation-inner').fadeIn(100);
-			$('#nav-button').addClass("active");
+			$('#header-main-menu > ul').fadeIn(100);
+			$('#menu-toggle').addClass("active");
 			return false;
 		},
 		function()
 		{
-			$('#navigation-inner').fadeOut(100);
-			$('#nav-button').removeClass("active");
+			$('#header-main-menu > ul').fadeOut(100);
+			$('#menu-toggle').removeClass("active");
 			return false;
 		}
 	);
