@@ -117,6 +117,9 @@
 RewriteEngine On
 RewriteBase /
 
+RewriteCond %{HTTP_HOST} !^www.yourdomain.co.uk$
+RewriteRule ^(.*)$ http://www.yourdomain.co.uk/$1 [R=301,L] 
+
 RewriteCond $1 !\.(gif|jpe?g|png)$ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
