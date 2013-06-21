@@ -117,6 +117,7 @@
 RewriteEngine On
 RewriteBase /
 
+# Force www
 RewriteCond %{HTTP_HOST} !^www.yourdomain.co.uk$
 RewriteRule ^(.*)$ http://www.yourdomain.co.uk/$1 [R=301,L] 
 
