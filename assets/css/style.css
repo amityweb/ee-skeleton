@@ -310,19 +310,19 @@ MENUS
 /**************************
 Main Menu ****************/
 
-#navigation li
+#header-main-menu li
 {
 	float: left;
 	position: relative;
 }
-	#navigation li a
+	#header-main-menu li a
 	{
 		float: left;
 	    display: block;
 		text-decoration: none;
 		padding: 5px 7px;
 	}
-		#navigation li ul
+		#header-main-menu li ul
 		{
 			display: none;
 			position:absolute;
@@ -331,7 +331,7 @@ Main Menu ****************/
 			background: #f3f3f3;
 		}
 		
-			#navigation li:hover ul
+			#header-main-menu li:hover ul
 			{
 				display:block;
 			}

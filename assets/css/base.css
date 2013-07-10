@@ -254,6 +254,19 @@ FORMS
 		padding: 5px;
 	}
 
+/*************************
+Google Maps *************/
+#map_canvas img
+{
+	max-width: none;					/* Fixes strange icons */
+}
+#map_canvas *
+{
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;			/* Fixes infowindow jagged lines */ 
+}
+
 /**************************
 Cookie Box ***************/
 #cookie_box
