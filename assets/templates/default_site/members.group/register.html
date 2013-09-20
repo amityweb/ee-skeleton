@@ -1,135 +1,32 @@
-<?php
-$this->EE =& get_instance();
-$action_id = $this->EE->functions->fetch_action_id('Member', 'register_member');
-?> 
 {embed="_inc/.header"}
 
 	<h1>Register for an Account</h1>
-
-	<form id="publishForm" method="post" action="{site_url}">
-		
-		<div class="hiddenFields">
-	        <input type="hidden" name="XID" value={XID_HASH} /> 
-	        <input type="hidden" name="ACT" value="<?php echo $action_id; ?>" />
-	        <input type="hidden" name="RET" value="{site_url}members/index" /> 
-	        <input type="hidden" name="FROM" value="" /> 
-	        <input type="hidden" name="site_id" value="1" /> 
-		</div>
-		
+	
+	{!-- Set Require Terms of Service to No in Member preferences or include a field for it on this page --}
+	
+	{exp:freemember:register
+		return="members/registered"
+	}
 		<fieldset class="uniform">
-			<legend>Account Details</legend>
-			
 			<p>
-				<label for="username">Username <span class="highlight">*</span></label>
-				<input type="text" name="username" id="username" value="" maxlength="32" class="inputbox" />
-			</p>
-	
-			<p>
-				<label for="password">Password <span class="highlight">*</span></label>
-				<input type="password" name="password" id="password" value="" maxlength="32" class="inputbox" />
-			</p>
-	
-			<p>
-				<label for="password_confirm">Confirm Password <span class="highlight">*</span></label>
-				<input type="password" name="password_confirm" id="password_confirm" value="" maxlength="32" class="inputbox" />
-			</p>
-	
-			<p>
-				<label for="email">Email Address <span class="highlight">*</span></label>
-				<input type="text" name="email" id="email" value="" maxlength="120" class="inputbox" />
-			</p>
-	
-			<p>
-				<label for="email_confirm">Confirm Email <span class="highlight">*</span></label>
-				<input type="text" name="email_confirm" id="email_confirm" value="" maxlength="120" class="inputbox" />
+				<label for="email">Email</label>
+				{field:email}{error:email}
 			</p>
 			
+			<p>
+				<label for="password">Password</label>
+				{field:password}{error:password}
+			</p>
+			
+			<p>
+				<label for="password_confirm">Confirm New Password</label>
+				{field:password_confirm}{error:password_confirm}
+			</p>
+			
+			<p>
+				<input type="submit" value="Register" />
+			</p>
 		</fieldset>
-	{if segment_3 == "restaurant"}
-		<fieldset class="uniform">
-			<legend>Your Details</legend>
-			
-			<p>
-				<label for="first_name">First Name <span class="highlight">*</span></label>
-				<input type="text" name="m_field_id_1" id="first_name" value="" maxlength="120" class="inputbox" />
-			</p>
+	{/exp:freemember:register}
 	
-			<p>
-				<label for="last_name">Last Name <span class="highlight">*</span></label>
-				<input type="text" name="m_field_id_2" id="last_name" value="" maxlength="120" class="inputbox" />
-			</p>
-	
-			<p>
-				<label for="address">Address 1 <span class="highlight">*</span></label>
-				<input type="text" name="m_field_id_3" id="address" value="" maxlength="120" class="inputbox" />
-			</p>
-	
-			<p>
-				<label for="address2">Address 2 <span class="highlight">*</span></label>
-				<input type="text" name="m_field_id_4" id="address2" value="" maxlength="120" class="inputbox" />
-			</p>
-	
-			<p>
-				<label for="city">City <span class="highlight">*</span></label>
-				<input type="text" name="m_field_id_5" id="city" value="" maxlength="120" class="inputbox" />
-			</p>
-	
-			<p>
-				<label for="county">County <span class="highlight">*</span></label>
-				<input type="text" name="m_field_id_6" id="county" value="" maxlength="120" class="inputbox" />
-			</p>
-	
-			<p>
-				<label for="postcode">Postcode <span class="highlight">*</span></label>
-				<input type="text" name="m_field_id_7" id="postcode" value="" maxlength="120" class="inputbox" />
-			</p>
-	
-			<p>
-				<label for="phone">Phone <span class="highlight">*</span></label>
-				<input type="text" name="m_field_id_8" id="phone" value="" maxlength="120" class="inputbox" />
-			</p>
-			
-		</fieldset>
-		
-		<fieldset>
-			<legend>Terms of Service</legend>
-			<p>
-				
-				<textarea name="rules" id="rules" class="textarea" rows="9" cols="90" readonly="readonly">
-All messages posted at this site express the views of the author, and do not necessarily reflect the views of the owners and administrators of this site.
-	
-By registering at this site you agree not to post any messages that are obscene, vulgar, slanderous, hateful, threatening, or that violate any laws.   We will permanently ban all users who do so.   
-	
-We reserve the right to remove, edit, or move any messages for any reason.
-				</textarea>
-				
-			</p>
-	
-			<p>
-				<input type="checkbox" name="accept_terms" id="accept_terms" value="y" /> 
-				<label for="accept_terms" class="alert">I agree to the terms of service <span class="highlight">*</span></label>
-			</p>
-		
-		</fieldset>
-	{/if}	
-		
-		{if captcha}
-		<p>
-			<label for="captcha">{lang:captcha} <span class="highlight">*</span></label>
-			{captcha}
-			<input type="text" name="captcha" id="captcha" value="" maxlength="20" class="inputbox" />
-		</p>
-		{/if}
-
-		<p>
-			<input type="submit" value="Submit" class="submit" />
-		</p>
-
-		<p>
-			<span class="highlight">*</span> Indicates required fields
-		</p>
-
-	</form>
-
-
 {embed="_inc/.footer"}
