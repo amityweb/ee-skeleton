@@ -1,0 +1,57 @@
+{embed="_inc/.header"}
+
+<?php
+if( ("{segment_3}" == "") && ("{segment_2}" != "") && (!preg_match("#^P(\d+)|/P(\d+)#","{segment_2}"))) :
+?>
+
+	{embed="blog/.entry"}
+	
+<?php else :
+
+	$type = "";
+	$filter = "";
+	if("{segment_2}" == "category")
+	{
+		$type = "category";
+		$filter = "category='{segment_3_category_id}'";
+	}
+	elseif("{segment_2}" == "tags")
+	{
+		$type = "tags";
+		$filter = "entry_id='{tagger:entry_id}'";
+	}
+	elseif("{segment_2}" == "author")
+	{
+		$type = "author";
+		$filter = "author_id='{segment_3}'";
+	}
+	elseif("{segment_2}" == "archives")
+	{
+		$type = "archives";
+		$filter = "year='{segment_3}' month='{segment_4}'";
+		$month = date("F", mktime(0, 0, 0, "{segment_4}", 10));
+	}
+?>
+		
+	<?php if($type == "category"):?>
+		<h1>Archive | {segment_3_category_name}</h1>
+	<?php elseif($type == "tags"):?>
+		<h1>Tag Archive | {exp:tagger:tagname tag="{segment_3}"}</h1>
+	<?php elseif($type == "author"):?>
+		<h1>Archive by Author | {exp:member:custom_profile_data member_id="{segment_3}"}{screen_name}{/exp:member:custom_profile_data}</h1>
+	<?php elseif($type == "archives"):?>
+		<h1>Tag Archive | <?php echo $month; ?> {segment_3}</h1>
+	<?php else: ?>
+		<h1>{site_name} Blog</h1>
+	<?php endif; ?>
+	
+	{embed="blog/.list"
+		limit="5"
+		paginate="true"
+		<?php if($filter != ""):?>filter="<?php echo $filter; ?>" <?php endif; ?>
+		type="<?php echo $type; ?>"
+	}
+	
+<?php endif; ?>
+
+{embed="_inc/.footer"}

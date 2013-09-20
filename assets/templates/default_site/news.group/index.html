@@ -11,7 +11,7 @@ if ( $entry == "" || preg_match("#^P(\d+)|/P(\d+)#",$entry) )
 
 	<div class="row">
 		{exp:channel:entries channel="content" dynamic="no" url_title="{segment_1}" disable="categories|member_data|pagination"}
-			<h1>{site_name} News</h1>
+			<h1>{site_name} {title}</h1>
 			{content_body}
 		{/exp:channel:entries}
 	</div>
@@ -22,7 +22,19 @@ if ( $entry == "" || preg_match("#^P(\d+)|/P(\d+)#",$entry) )
 	
 <?php else : ?>
 	
-	{embed="news/.entry"}
+	{exp:channel:entries channel="news" disable="categories|member_data|pagination"}
+		
+		<h1>{title}</h1>
+		<p class="lowlight">Written by {author} on {entry_date format="%l %d %F %Y"}</p>
+		
+		{news_image}
+			<img src="{url}" width="{width}" />
+		{/news_image}
+		{exp:low_widont}{news_body}{/exp:low_widont}
+		
+	{/exp:channel:entries}
+	
+	{embed="_inc/.social_buttons"}
 	
 <?php endif; ?>
 
