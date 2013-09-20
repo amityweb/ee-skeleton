@@ -1,0 +1,81 @@
+<div class="index-list">
+	
+{if embed:type == "tags"}
+	{exp:tagger:entries channel="{segment_1}" tag="{segment_3}"}
+		
+		{if tagger:no_entries}
+			<h2>No entries were found relating to this tag</h2>
+		{/if}
+{/if}
+	
+	{exp:channel:entries channel="blog" limit="{embed:limit}" {embed:filter} paginate="bottom" dynamic="no" disable="member_data"}
+		
+		<div class="col-wrap twelvecol">
+			<div class="col{if blog_image} eightcol{/if}">
+				<p class="h2"><a href="/blog/{url_title}" title="{title}">{title}</a></p>
+				<p class="lowlight">
+					by <a href="{path='blog/author/{author_id}'}" title="View all posts by {author}" rel="author" class="lowlight-link">{author}</a>
+					on <a href="/blog/archives/{entry_date format='%Y/%m'}" title="All posts from {entry_date format='%F, %Y'}" class="lowlight-link">{entry_date format="%j%S %F, %Y"}</a>
+					in {categories backspace="2"}<a href="{path='blog'}">{category_name}</a>, {/categories}
+				</p>
+				<p>
+					{exp:low_widont}{blog_summary}{/exp:low_widont}
+				</p>
+				<p>
+					<a href="/blog/{url_title}" title="{title}">Read the full story</a>
+				</p>
+				{exp:tagger:tags entry_id="{entry_id}" backspace="7"}
+					{if tagger:count == "1"}
+						<p class="tags">Tags:
+					{/if}
+					<a href="/blog/tags/{tagger:urlsafe_tagname}" title="Blog entries about {tagger:tag_name}">{tagger:tag_name}</a>
+					{if tagger:count == tagger:total_tags}
+						</p>
+					{/if}, 
+				{/exp:tagger:tags}
+			</div>
+			{if blog_image}
+				<div class="col fourcol right nomob">
+					<a href="/blog/{url_title}" title="{title}">
+						{blog_image}
+							<img src="{url:index}" width="190" />
+						{/blog_image}
+					</a>
+				</div>
+			{/if}
+			
+		</div>
+		
+		{paginate}
+			{if embed:paginate == "true"}
+
+				<div class="pagination col-wrap twelvecol">
+					<div class="left">
+						Page {current_page} of {total_pages}
+					</div>
+					<div class="right">
+						{pagination_links}
+							{page}
+								{if current_page}
+									<span class="page-number">{pagination_page_number}</span>
+								{if:else}
+									<a href="{pagination_url}" class="page-number">{pagination_page_number}</a>
+								{/if}
+							{/page}
+						{/pagination_links}
+					</div>
+				</div>
+				
+			{/if}
+		{/paginate}
+		
+	{/exp:channel:entries}
+	{if embed:link_to_list == "true"}
+		<a href="/blog" class="all-blog">More from the blog</a>
+	{/if}
+	
+{if embed:type == "tags"}
+	{/exp:tagger:entries}
+{/if}
+
+</div>

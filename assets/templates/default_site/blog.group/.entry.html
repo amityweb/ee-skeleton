@@ -1,0 +1,52 @@
+{exp:channel:entries channel="blog" url_title="{last_segment}" dynamic="no" disable="member_data|pagination"}
+	
+	{if no_results}
+		{redirect="blog"}
+	{/if}
+	
+	<h1>{title}</h1>
+	
+	<p class="lowlight">
+		Written by <a href="/blog/author/{author_id}" title="View all posts by {author}" rel="author" class="lowlight-link">{author}</a>
+		on <a href="/blog/archives/{entry_date format='%Y/%m'}" title="All posts from {entry_date format='%F, %Y'}" class="lowlight-link">{entry_date format="%j%S %F, %Y"}</a>
+		in {categories backspace="2"}<a href="{path='blog'}">{category_name}</a>, {/categories}
+	</p>
+	
+	{if blog_image}
+		{if blog_entry_image_link}
+			<a href="{blog_entry_image_link}" title="{blog_entry_image_link_title}">
+		{/if}
+			<img src="{blog_image}" alt="{blog_entry_image_alt}" title="{blog_entry_image_title}" class="image_right" />
+		{if blog_entry_image_link}
+			</a>
+		{/if}
+	{/if}
+	{if blog_overview}
+		<div class="blog-overview image_right bubble purple">
+			{blog_overview}
+		</div>
+	{/if}
+	{exp:low_widont}{blog_body}{/exp:low_widont}
+	
+	{exp:tagger:tags entry_id="{entry_id}" backspace="4"}
+		{if tagger:count == "1"}
+			<p class="tags">Tags:
+		{/if}
+		<a href="/blog/tags/{tagger:urlsafe_tagname}" title="Blog entries about {tagger:tag_name}">{tagger:tag_name}</a>
+		{if tagger:count == tagger:total_tags}
+			</p>
+		{/if}, 
+	{/exp:tagger:tags}
+
+{/exp:channel:entries}
+
+{embed="_inc/.social_buttons"}
+
+<div id="entry-advance" class="left twelvecol">
+	{exp:channel:prev_entry channel="blog"}
+	    <a href="/blog/{url_title}" title="{title}" class="left">&laquo; {title}</a>
+	{/exp:channel:prev_entry}
+	{exp:channel:next_entry channel="blog"}
+	    <a href="/blog/{url_title}" title="{title}" class="right">{title} &raquo;</a>
+	{/exp:channel:next_entry}
+</div>
