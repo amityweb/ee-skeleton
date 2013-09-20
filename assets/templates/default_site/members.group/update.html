@@ -1,0 +1,45 @@
+{if logged_out}
+	{redirect="members"}
+{/if}
+
+{embed="_inc/.header"}
+
+	<h1>Edit Profile</h1>
+	
+	{exp:freemember:update_profile
+		return="members"
+		require="current_password"
+		error_handling="inline"
+		error_delimiters='<span class="col twelvecol error">|</span>'
+	}
+		<fieldset class="uniform">
+			<p>
+				<label for="email">Email</label>
+				{field:email}{error:email}
+			</p>
+			
+			<p>
+				<label for="current_password">Current Password</label>
+				{field:current_password}{error:current_password}
+			</p>
+			
+			<p>
+				<label for="password">New Password</label>
+				{field:password}{error:password}
+			</p>
+			
+			<p>
+				<label for="password_confirm">Confirm New Password</label>
+				{field:password_confirm}{error:password_confirm}
+			</p>
+			
+			<p>
+				<input type="submit" value="Update Profile" />
+			</p>
+		</fieldset>
+	{/exp:freemember:update_profile}
+	
+	<a href="{exp:freemember:logout_url return}">Log out</a>
+
+
+{embed="_inc/.footer"}
