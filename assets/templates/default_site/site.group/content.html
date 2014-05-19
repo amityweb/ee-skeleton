@@ -1,0 +1,8 @@
+{embed="_inc/.header"}
+
+	{exp:channel:entries channel="content" url_title="{last_segment}" dynamic="no" disable="categories|member_data|pagination"}
+		<h1>{title}</h1>
+		{content_body}
+	{/exp:channel:entries}
+
+{embed="_inc/.footer"}

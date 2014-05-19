@@ -10,8 +10,8 @@
 			{if channel_short_name == 'content'}
 				<a href="/{url_title}">{title}</a>
 			{/if}
-			{if channel_short_name == 'news'}
-				<a href="/{channel_short_name}/article/{url_title}">{title}</a>
+			{if channel_short_name == 'blog' || channel_short_name == 'news'}
+				<a href="/{channel_short_name}/{url_title}">{title}</a>
 			{/if}
 			{if channel_short_name == 'products'}
 				<a href="/{channel_short_name}/{categories}{category_url_title}{/categories}/{url_title}">{title}</a>

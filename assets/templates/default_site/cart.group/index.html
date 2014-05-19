@@ -1,0 +1,77 @@
+{embed="_inc/.header"}
+	
+	<h1>Cart</h1>
+
+	{if "{exp:cartthrob:total_items_count}" == 0}
+		{exp:channel:entries channel="snippets" url_title="empty-cart" dynamic="no" disable="categories|member_data|pagination"}
+			<div class="text-center">{snippet_body}</div>
+		{/exp:channel:entries}
+	{/if}
+	
+	{if "{exp:cartthrob:total_items_count}" != 0}
+		{exp:cartthrob:update_cart_form
+			class="row"
+			return="{segment_1}/checkout"
+		}
+			{exp:cartthrob:cart_items_info}
+				
+				<div class="row cart-item">
+					<div class="item-info left">
+						<a href="/product/{url_title}" title="{title}" class="h2 row">{title}</a>
+						<ul>
+							{exp:cartthrob:item_options row_id="{row_id}" }
+								{options}
+									{if selected}<li>{option_label}: {option_name}</li>{/if}
+								{/options}
+							{/exp:cartthrob:item_options}
+						</ul>
+					</div>
+					<div class="item-pricing right text-right">
+						<p>
+							<label for="product_quantity_{count}">Quantity: </label>
+							<input type="text" name="quantity[{row_id}]" id="product_quantity_{count}" size="3" value="{quantity}" />
+						</p>
+						{item_price:plus_tax}<br />
+						{if no_shipping != "Yes"}<span class="shipping-price">Shipping: {product_shipping:plus_tax}</span>{/if}
+						{if product_shipping_notes != ""}<span class="shipping-note">Shipping note: {product_shipping_notes}</span>{/if}
+					</div>
+				</div>
+				
+				{if last_row}
+					<span class="left twelvecol">Subtotal: {cart_subtotal}</span>
+					{exp:cartthrob:coupon_info}
+						<span class="left twelvecol">
+							Discount: {cart_discount}
+							<a href="/cart/clear-coupons" class="right">Remove Coupons</a>
+						</span>
+					{/exp:cartthrob:coupon_info}
+					<span class="left twelvecol">Shipping: {cart_shipping}</span>
+					<span class="left twelvecol">VAT: {cart_tax}</span>
+						
+					<div class="row">
+						<span class="h2">Total: {cart_total}</span>
+						<span class="right">
+							<button type="submit" value="{segment_1}" name="return">Update Total</button>
+							<button type="submit" value="{segment_1}/checkout" name="return" class="prominent">Proceed to Checkout</button>
+						</span>
+					</div>
+				{/if}
+				
+			{/exp:cartthrob:cart_items_info}
+			
+		{/exp:cartthrob:update_cart_form}
+		
+		{exp:cartthrob:add_coupon_form
+			class="row coupon text-right"
+			error_handling="inline"
+			return="{segment_1}"
+		}
+			{if allowed}
+					<input type="text" name="coupon_code" id="coupon_code" value="" />
+					<input type="submit" name="use_coupon" value="Use Coupon" />
+			{/if}
+			{if errors_exist}<p class="error">{errors}{error}{/errors}</p>{/if}
+		{/exp:cartthrob:add_coupon_form}
+	{/if}
+
+{embed="_inc/.footer"}

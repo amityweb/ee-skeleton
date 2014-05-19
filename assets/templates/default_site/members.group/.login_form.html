@@ -2,31 +2,65 @@
 	return="/{embed:return}"
 	error_handling="inline"
 	error_delimiters='<span class="col twelvecol error">|</span>'
+	form_id="login-form"
 }
-	<fieldset class="uniform">
+	<fieldset class="uniform{if embed:float} {embed:float}{/if}">
+		{if embed:legend}
+			<legend>{embed:legend}</legend>
+		{/if}
 		
-		<p>
-			<label for="email">Email</label>
-			{field:email}{error:email}
-		</p>
-		
-		<p>
-			<label for="password">Password</label>
-			{field:password}
-			{error:password}
-		</p>
+		<label for="email">Email</label>
+		{field:email}{error:email}
+	
+		<label for="password">Password</label>
+		{field:password}{error:password}
 		
 	{if auto_login}
-		<p>
+		<div class="row">
 			{field:auto_login}
 			<label for="auto_login">Remember Me</label>
-		</p>
+		</div>
 	{/if}
 		
-		<p>
-			<input type="submit" name="submit" value="Log in" />
-			<a href="/members/forgot-password">Forgot your password?</a>
-		</p>
+		<div class="row headway">
+			<p class="right">
+				<a href="/members/forgot-password">Forgot your password?</a>
+				<input type="submit" name="submit" class="prominent" value="Log in" />		
+			</p>
+			{if embed:register != "off"}
+				<p class="form-switch left">
+					<a href="#register">Not yet registered?</a>
+				</p>
+			{/if}
+		</div>
 		
 	</fieldset>
 {/exp:freemember:login}
+{if embed:register != "off"}
+	{exp:freemember:register
+		return="{embed:return}"
+		error_handling="inline"
+		error_delimiters='<span class="col twelvecol error">|</span>'
+		form_id="register-form"
+	}
+		<fieldset class="uniform{if embed:float} {embed:float}{/if}">
+			<label for="email">Email</label>
+			{field:email}{error:email}
+		
+			<label for="password">Password</label>
+			{field:password}{error:password}
+		
+			<label for="password_confirm">Confirm Password</label>
+			{field:password_confirm}{error:password_confirm}
+			
+			<div class="row headway">
+				<p class="right">
+					<input type="submit" class="prominent" value="Register" />
+				</p>
+				<p class="form-switch left">
+					<a href="#login">Already registered?</a>
+				</p>
+			</div>
+		</fieldset>
+	{/exp:freemember:register}
+{/if}

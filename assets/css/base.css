@@ -1,11 +1,27 @@
 /******************************
-RESET
+Fonts
+******************************/
+@font-face {
+	font-family: 'icons';
+	src:url('/assets/fonts/icons.eot');
+	src:url('/assets/fonts/icons.eot?#iefix') format('embedded-opentype'),
+		url('/assets/fonts/icons.woff') format('woff'),
+		url('/assets/fonts/icons.ttf') format('truetype'),
+		url('/assets/fonts/icons.svg#icons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/******************************
+Reset
 ******************************/
 /* General */
 html,body,div,span,h1,h2,h3,h4,h5,h6,p,a,font,img,strong,b,u,i,ul,ol,li,address,blockquote,iframe{border:0;margin:0;padding:0;}
 address{font-style:normal;}
-li{list-style:none;}
-body,p,li,h1,h2,h3,h4,h5,h6,a{font-family: varela_round, verdana, arial;}
+body,p,li,h1,h2,h3,h4,h5,h6,a,input,select,textarea{font-family: helvetica, arial, verdana, sans-serif;}
+ul,ol	{ padding: 1.12em 1.5em }
+	li		{ padding-left: 0.1em; list-style: disc; }
+	ol li		{ list-style:decimal } 
 /* HTML5 */
 article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block;}
 audio,canvas,video{display:inline-block;*display:inline;*zoom:1;}
@@ -16,9 +32,9 @@ form{margin:0;}
 fieldset{border:0;margin:5px auto;padding:0;width: 100%;max-width: 585px;}
 legend{font-size: 1.5em;padding:10px 0;}
 button,input,select,textarea{font-size:100%;margin:0;vertical-align:baseline;}
-button,input,label,select,textarea{display: inline-block;}
+button,input,label,select,textarea{display:inline-block;}
 label{line-height:2em;}
-input{padding: 10px;}
+input{padding: 0.45em;}
 button,input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;-webkit-appearance:button;line-height:normal;padding:8px;}
 button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}
 textarea{overflow:auto;vertical-align:top;resize:vertical;width:100%;}
@@ -27,15 +43,21 @@ table{border-collapse:collapse;border-spacing:0;padding:5px;}
 th,td{padding:2px 5px;border:1px solid #999;}
 
 /******************************
-GRID LAYOUT
+Grid Layout
 ******************************/
 /* Force border-box styling for all */
-*
+*, *:after, *:before
 {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
+	.mean-bar *, .mean-bar *:after, .mean-bar *:before
+	{
+		-webkit-box-sizing: content-box;
+		-moz-box-sizing: content-box;
+		box-sizing: content-box;
+	}
 
 .inner
 {
@@ -44,7 +66,7 @@ GRID LAYOUT
 	overflow: hidden;
 	position: relative;
 	max-width: 990px;
-	width: 990px;
+	width: 100%;
 }
 
 .row
@@ -98,16 +120,19 @@ GRID LAYOUT
 		.col-wrap.sevencol	{	width: 60.33%;	}
 		.col-wrap.sixcol	{	width: 52%;		}
 
-.right			{	float: right !important;		}
-.left			{	float: left !important;			}
-.text-right		{	text-align: right;				}
-.text-left		{	text-align: left;				}
-.text-center	{	text-align: center;				}
 .center			{	margin: auto; overflow: hidden;	}
+.left			{	float: left !important;			}
+.right			{	float: right !important;		}
+.clear			{	clear: both;					}
+.clear-left		{	clear: left;					}
+.clear-right	{	clear: right;					}
+.text-left		{	text-align: left;				}
+.text-right		{	text-align: right;				}
+.text-center	{	text-align: center;				}
 
 .nodesktop,
 .belowtab,
-#menu-toggle	{	display: none;					}
+.hide		{	display: none;					}
 
 /**************************
 Up to Tablet *************/
@@ -157,8 +182,7 @@ Up to Landscape Phone ****/
 		.col.fullland	{	width: 98% !important;	}
 	.noland				{	display: none !important;	}
 	
-	.belowtab,
-	#menu-toggle		{ display: block;			}
+	.belowtab			{ display: block;			}
 }
 
 /**************************
@@ -196,10 +220,10 @@ hr
 	width: 100%;
 	margin: 10px 0 10px 0;
 }
-
-/******************************
-IMAGES
-******************************/
+iframe
+{
+	max-width: 100%;
+}
 
 img
 {
@@ -222,15 +246,40 @@ img
 }
 
 /******************************
-FORMS
+Forms
 ******************************/
 .uniform label
 {
-	font-size: 1.25em;
+	font-size: 1.2em;
 	line-height: 1.877em;
-	max-width: 165px;
+	max-width: 180px;
 	width: 100%;
 }
+	.uniform .required
+	{
+		
+	}
+		.uniform .required:before
+		{
+			content: "*";
+			color: #EE0000;
+		}
+	
+	.uniform .checkbox,
+	.uniform .free
+	{
+		max-width: none !important;
+		width: auto;
+	}
+		.uniform .checkbox-group .checkbox
+		{
+			font-size: 1em;
+		}
+			.uniform .checkbox-group .checkbox + .checkbox
+			{
+				margin-left: 5px;
+			}
+
 .uniform input[type="text"],
 .uniform input[type="email"],
 .uniform input[type="url"],
@@ -239,9 +288,29 @@ FORMS
 .uniform textarea
 {
 	border: 1px solid #CACACA;
-	max-width: 350px;
+	max-width: 400px;
 	width: 100%;
 }
+	.uniform.full-width input[type="text"],
+	.uniform.full-width input[type="email"],
+	.uniform.full-width input[type="url"],
+	.uniform.full-width input[type="password"],
+	.uniform.full-width select,
+	.uniform.full-width textarea,
+	.uniform.full-width label,
+	.uniform.full-width .label,
+	.uniform .full-width input[type="text"],
+	.uniform .full-width input[type="email"],
+	.uniform .full-width input[type="url"],
+	.uniform .full-width input[type="password"],
+	.uniform .full-width select,
+	.uniform .full-width textarea,
+	.uniform .full-width label,
+	.uniform .full-width .label
+	{
+		max-width: none;
+		width: 100%;
+	}
 	.uniform select
 	{
 		height:2.5em;
@@ -254,8 +323,21 @@ FORMS
 		padding: 5px;
 	}
 
-/*************************
-Google Maps *************/
+/******************************
+Lists
+******************************/
+ul.indented-list, .indented-list ul		{	padding-bottom: 0; padding-top: 0;	}
+ul.menu, .menu ul						{	padding: 0;							}
+
+	.indented-list li,
+	.menu li							{	list-style:none; padding: 0;		}
+		.menu.horz li					{	display: inline-block;				}
+			.menu.horz li + li			{	margin-left: 10px;					}
+
+
+/******************************
+Google Maps
+******************************/
 #map_canvas img
 {
 	max-width: none;					/* Fixes strange icons */
@@ -267,40 +349,64 @@ Google Maps *************/
 	box-sizing: content-box;			/* Fixes infowindow jagged lines */ 
 }
 
-/**************************
-Cookie Box ***************/
+/******************************
+Cookie Box
+******************************/
 #cookie_box
-{ 
-	position: fixed;
-	bottom: 0;
-	font-size: 0.8em;
-	z-index: 1000;
+{
 	background:#393939;
-	padding:5px;
+	bottom: 0;
+	color:#FFFFFF;
+	font-size: 0.8em;
+	opacity: 0.7;
+	position: fixed;
 	text-align:center;
 	width:100%;
-	color:#ffffff;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
-	filter: alpha(opacity=70);
-	-moz-opacity: 0.7;
-	-khtml-opacity: 0.7;
-	opacity: 0.7;
+	z-index: 1000;
 }
-	#cookie_box a
+	#cookie_box p
 	{
-		color:#ffffff;
+		padding:5px;
 	}
-		#cookie_box a:hover
+		#cookie_box a
 		{
-			text-decoration: underline
+			color:#FFFFFF;
 		}
+			#cookie_box a:hover,
+			#cookie_box a:focus
+			{
+				text-decoration: underline
+			}
 
 	.js #cookie_box
 	{
-		display: none;
+		max-height: 0;
+		-webkit-transition: max-height .5s ease-in;
+		-moz-transition: max-height .5s ease-in;
+		-o-transition: max-height .5s ease-in;
+		transition: max-height .5s ease-in;
 	}
-
+		#cookie_box.visible
+		{
+			max-height: 75px;
+			-webkit-transition: max-height 1s ease-in;
+			-moz-transition: max-height 1s ease-in;
+			-o-transition: max-height 1s ease-in;
+			transition: max-height 1s ease-in;
+		}
+	
+	.cookie_box_close:after
+	{
+		content: "\e600";
+		font-family: icons;
+		font-size: 16px;
+		margin-left: 5px;
+		speak: none;
+		vertical-align: bottom;
+	}
+	
 	.nojs .cookie_box_close
 	{
 		display: none;
 	}
+	

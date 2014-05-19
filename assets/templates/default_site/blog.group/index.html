@@ -4,7 +4,7 @@
 if( ("{segment_3}" == "") && ("{segment_2}" != "") && (!preg_match("#^P(\d+)|/P(\d+)#","{segment_2}"))) :
 ?>
 
-	{embed="blog/.entry"}
+	{embed="blog/.entry" params="url_title='{last_segment}'"}
 	
 <?php else :
 
@@ -32,7 +32,7 @@ if( ("{segment_3}" == "") && ("{segment_2}" != "") && (!preg_match("#^P(\d+)|/P(
 		$month = date("F", mktime(0, 0, 0, "{segment_4}", 10));
 	}
 ?>
-		
+	
 	<?php if($type == "category"):?>
 		<h1>Archive | {segment_3_category_name}</h1>
 	<?php elseif($type == "tags"):?>

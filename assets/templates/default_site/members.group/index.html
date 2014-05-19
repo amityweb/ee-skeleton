@@ -12,29 +12,58 @@
 			<p>Your password was successfully reset. Please log in with your new details.</p>
 		{/if}
 		
-		{embed="members/.login_form" return="members"}
-		
-		<p class="text-right">Not yet registered? <a href="/members/register">Sign up here</a>.</p>
+		{embed="members/.login_form" float="left" return="{current_path}"}
 		
 	{/if}
 
 	{if logged_in}
 		
-		{!-- If you have account statistics, show them here
+		<h1>Account</h1>
 		
-		<div class="bubble blue">
-			<h1>Account</h1>
+		<div id="account-menu" class="right">
+			{if segment_2 != "update"}<a href="/members/update" class="button secondary">Update Profile</a>{/if}
+			<a href="{exp:freemember:logout_url return}" class="button secondary">Log out</a>
 		</div>
 		
-		<a href="{exp:freemember:logout_url return}">Log out</a>
+		<h2>Recent Orders</h2>
 		
-		--}
+		{exp:channel:entries channel="orders" author_id="CURRENT_USER" dynamic="no" disable="categories|member_data|pagination"}
+			{if no_results}
+				{no_recent_orders}{!-- Template snippet --}
+			{/if}
+			<div class="left twelvecol order">
+				<span class="col twelvecol">
+					<span class="bold">
+						Order Number: {title}
+						<span class="right">
+							{entry_date format="%d/%m/%Y"}
+						</span>
+					</span>
+					<br />
+					Transaction ID: {order_transaction_id}
+				</span>
+				{exp:cartthrob:order_items order_id="{entry_id}" }
+					<span class="col twelvecol">
+						<span class="left eightcol">
+							<a href="/product/{item:url_title}" title="Full information about {item:title}" class="h3 order-info">{item:title}</a>
+							<br />
+							{if item:product_size}{item:product_size}, {/if}{item:product_colour}
+						</span>
+						<span class="left fourcol fullland text-right">
+							Quantity: {item:quantity}<br />
+							{item:price_plus_tax}
+						</span>
+					</span>
+				{/exp:cartthrob:order_items}
+				<span class="col twelvecol">
+					<span class="right bold">
+						Total: {order_total}
+					</span>
+				</span>
+			</div>
+		{/exp:channel:entries}
 		
-		{!-- Else just redirect to the update page
-				Consider moving that content to this page instead of embedding.
-		 --}
 		
-		{redirect="members/update"}
 		
 	{/if}
 {embed="_inc/.footer"}

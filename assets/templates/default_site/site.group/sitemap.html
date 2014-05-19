@@ -4,29 +4,47 @@
 		
 		{exp:channel:entries channel="content" url_title="{segment_1}" dynamic="no" disable="categories|member_data|pagination"}
 			
-			<h1>{title}</h1>
-			{content_body}
+			<div class="bubble blue{if content_body} summary{/if}">
+				<h1>{title}</h1>
+				<p class="intro">{content_body}</p>
+			</div>
 			
 		{/exp:channel:entries}
 		
 	</div>
 		
-	<div id="sitemap" class="left twelvecol">
-		{exp:taxonomy:nav tree_id="2" display_root="no"}
+	<div id="sitemap" class="left twelvecol indented-list">
+		{exp:taxonomy:nav tree_id="1" display_root="no"}
 		
 			<a href="{node_url}">{node_title}</a>
+			
+			{if node_title == 'Blog'}
+				<ul>
+				{exp:channel:entries channel="blog" disable="categories|custom_fields|member_data|pagination" dynamic="no"}
+					<li><a href="/blog/{url_title}">{title}</a></li>
+				{/exp:channel:entries} 
+				</ul>
+			{/if}
 			
 			{if node_title == 'News'}
 				<ul>
 				{exp:channel:entries channel="news" disable="categories|custom_fields|member_data|pagination" dynamic="no"}
-					<li><a href="{site_url}news/{url_title}">{title}</a></li>
+					<li><a href="/news/{url_title}">{title}</a></li>
+				{/exp:channel:entries} 
+				</ul>
+			{/if}
+			
+			{if node_title == 'Shop'}
+				<ul>
+				{exp:channel:entries channel="products" disable="categories|custom_fields|member_data|pagination" dynamic="no"}
+					<li><a href="/shop/{url_title}">{title}</a></li>
 				{/exp:channel:entries} 
 				</ul>
 			{/if}
 		
 		{/exp:taxonomy:nav}
 		
-		{exp:taxonomy:nav tree_id="1" display_root="no"}
+		{exp:taxonomy:nav tree_id="2" display_root="no"}
 			<a href="{node_url}">{node_title}</a>
 		{/exp:taxonomy:nav}
 	</div>

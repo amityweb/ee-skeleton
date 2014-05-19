@@ -1,5 +1,12 @@
+{!-- Possible embed values:
+type			-	REQUIRED - Used to check type of filter. category, tags, author, archives - Use anything else to bypass this E.g. reg
+limit			-	Used to limit the entries. Used for "latest" feed, or with pagination 
+filter			-	Can be anything you want to slip into the channel entries tag. E.g. "author_id='{segment_3}'"
+paginate		-	If "true" this outputs pagination links
+link_to_list	-	If "true" this outputs a link to the blog
+--}
 <div class="index-list">
-	
+
 {if embed:type == "tags"}
 	{exp:tagger:entries channel="{segment_1}" tag="{segment_3}"}
 		
@@ -9,8 +16,7 @@
 {/if}
 	
 	{exp:channel:entries channel="blog" limit="{embed:limit}" {embed:filter} paginate="bottom" dynamic="no" disable="member_data"}
-		
-		<div class="col-wrap twelvecol">
+		<div class="col-wrap twelvecol article">
 			<div class="col{if blog_image} eightcol{/if}">
 				<p class="h2"><a href="/blog/{url_title}" title="{title}">{title}</a></p>
 				<p class="lowlight">
@@ -24,12 +30,12 @@
 				<p>
 					<a href="/blog/{url_title}" title="{title}">Read the full story</a>
 				</p>
-				{exp:tagger:tags entry_id="{entry_id}" backspace="7"}
-					{if tagger:count == "1"}
+				{exp:tagger:tags entry_id="{entry_id}" prefix="tags" backspace="7"}
+					{if tags:count == "1"}
 						<p class="tags">Tags:
 					{/if}
-					<a href="/blog/tags/{tagger:urlsafe_tagname}" title="Blog entries about {tagger:tag_name}">{tagger:tag_name}</a>
-					{if tagger:count == tagger:total_tags}
+					<a href="/blog/tags/{tags:urlsafe_tagname}" title="Blog entries about {tags:tag_name}">{tags:tag_name}</a>
+					{if tags:count == tags:total_tags}
 						</p>
 					{/if}, 
 				{/exp:tagger:tags}
@@ -49,11 +55,11 @@
 		{paginate}
 			{if embed:paginate == "true"}
 
-				<div class="pagination col-wrap twelvecol">
-					<div class="left">
-						Page {current_page} of {total_pages}
-					</div>
-					<div class="right">
+				<div class="pagination left twelvecol text-center">
+					{if previous_page}
+						<a href="{auto_path}" class="left newer">Newer</a>
+					{/if}
+					<div class="page-numbers">
 						{pagination_links}
 							{page}
 								{if current_page}
@@ -64,6 +70,9 @@
 							{/page}
 						{/pagination_links}
 					</div>
+					{if next_page}
+						<a href="{auto_path}" class="right older">Older</a>
+					{/if}
 				</div>
 				
 			{/if}

@@ -1,124 +1,293 @@
 $(document).ready(function()
-{	
-	/******************************
-	Main Image Slideshow
-	******************************/
-	if( $('#slideshow-container').length > 0 )
+{
+	/***********************************
+	Checkout - Shipping Fields
+	***********************************/
+	if ($('#shipping-fields').length > 0)
 	{
-		$('#slideshow-container').after
-		(
-			'<div id="slideshow-arrows"><a href="#" id="slideshow-prev"></a><a href="#" id="slideshow-next"></a></div><div id="slideshow-buttons-wrap"><div id="slideshow-buttons"></div></div>'
-		);
-		
-		$('#slideshow-container').cycle({ 
-			fx:	  'fade', 
-			timeout:  8000,
-			speed:  2000,
-			fastOnEvent:   500,
-			cleartype:  false,
-			pause: 1,
-			pauseOnPagerHover: 1,
-			pager:  '#slideshow-buttons',
-			next:	'#slideshow-next',
-			prev:	'#slideshow-prev',
-			pagerEvent: 'mouseover',
-			pagerAnchorBuilder: function(idx, slide)
+		$('#use_billing_info').click(function(e)
+		{
+			$('#shipping-fields').slideToggle();
+		});
+	}
+	
+	/***********************************
+	Contact Form AJAX Submission
+	***********************************/
+	var contact_form_options =
+	{
+		beforeSubmit: function(data, form, options)
+		{
+			$('.error').removeClass('error');
+			// Validate
+			var error = '';
+			$.each($('.contact_form .required'), function(i,elem)
 			{
-				return '<a href="#"><img src="/assets/images/slideshow/bullets.png" /></a>';
+				if(!$(elem).val())
+				{
+					var error_label = $('label[for="'+ $(elem).attr('id') +'"]');
+					error += 'Please complete your ' + error_label.text() + '<br/>';
+					error_label.addClass('error');
+				}
+			});
+			if(error)
+			{	
+				$('.form-message').html('<span class="error">'+error+'</span>');
+				return false;
+			}
+		},
+		success: function(data)
+		{
+			if (data.match(/<title>Error<\/title>/))
+			{
+				var error = $(data).find('ul li:first').text();
+				$('.form-message').html('<span class="error">'+error+'</span>');
+			}
+			else
+			{
+				$('.contact_form').hide();
+				$('#contact-form-thank-you').show();
+			}
+		}
+	};
+	
+	$('#contact_form').ajaxForm(contact_form_options);
+	
+	/***********************************
+	Form labels as placeholders
+	***********************************/
+	// Place title text as placeholder & hide labels
+	if (document.createElement("input").placeholder != undefined)
+	{
+		$('.compact label').each(function()
+		{
+			var label = $(this);
+			if($(label).next().val() == '')
+			{
+				$(label).next().attr('placeholder',$(label).text()).addClass('full');
+				$(label).hide();
 			}
 		});
-		$('#slideshow-container').hover(
-			function()
+	}
+	
+	/***********************************
+	Gallery
+	***********************************/
+	$('.gallery-image .gallery-thumb').magnificPopup(
+	{
+		delegate: 'a',
+		type: 'image',
+		closeOnContentClick: false,
+		closeBtnInside: false,
+		mainClass: 'mfp-with-zoom mfp-img-mobile',
+		image: {
+			verticalFit: true,
+			titleSrc: function(item)
 			{
-				//show nav arrows
-				$('#slideshow-arrows').fadeIn();
-			},
-			function()
-			{
-				//hide nav arrows
-				$('#slideshow-arrows').fadeOut();
+				return item.el.attr('title') + ' &middot; <a class="image-source-link" href="'+item.el.attr('data-source')+'" target="_blank">image source</a>';
 			}
-		);
+		},
+		gallery:
+		{
+			enabled: true
+		},
+		zoom:
+		{
+			enabled: true,
+			duration: 300, // don't foget to change the duration also in CSS
+			opener: function(element)
+			{
+				return element.find('img');
+			}
+		}
+		
+	});
+	
+	/***********************************
+	Infinite Scroll
+	***********************************/
+	if($('.index-list').length > 0)
+	{
+		$('.index-list').infinitescroll(
+		{
+			loading: {
+				finishedMsg: "<em>No more posts to display!</em>",
+				img: "/assets/images/loading.gif",
+				msg: null,
+				msgText: "<em>Loading the next set of posts...</em>",
+				selector: null,
+				speed: 'fast',
+				start: undefined
+			},
+			navSelector : ".pagination",
+			nextSelector : "a.older",
+			itemSelector : ".article",
+			contentSelector: ".index-list",
+			extractLink: true
+		});
+	}
+	
+	/***********************************
+	Login/Register tabs
+	***********************************/
+	if ($('#register-form').length > 0)
+	{
+		if ((window.location.hash == "#register" ) || ($('#register-form .error').length > 0))
+		{
+			$('#login-form').hide();
+			$('#register-form').fadeIn(300);
+		}
+		$('.form-switch a').click(function()
+		{
+			var a = $(this);
+			var b = a.attr('href') + "-form";	// Will return either #login-form or #register-form
+			$(a).parents('form').hide();
+			$(b).fadeIn(300);
+		});
 	}
 	
 	/******************************
-	Contact Form
+	Modals
+	Docs: http://dimsemenov.com/plugins/magnific-popup/documentation.html
 	******************************/
-
-	if( $('form').length > 0 )
-	{
-		/* AJAX Submission */
 	
-		$('#contact-form').ajaxForm({
-			beforeSubmit: function(data, form, options)
+	$(".modal").magnificPopup(
+	{
+		type:'image',
+		disableon: 580,
+		closeOnContentClick: true,	// Enable if just one image in popup
+		zoom:
+		{
+			enabled: true,
+			duration: 300,
+			easing: 'ease-in-out' 
+		}
+	});
+	
+	/***********************************
+	Product Category Filter
+	***********************************/
+	if ($('.shop-cat #product-filter').length > 0)
+	{
+		$(document).on("click", '.filter, .category-group', function(e)
+		{
+			e.preventDefault();
+			$clicked = $(this);
+			$url = $clicked.attr("href");
+			$fragment = $url + ' #products .product';
+			$title = $clicked.text();
+			// Collect and insert filtered products
+			$('#products').load($fragment, function()
 			{
-				// Validate
-				var error = '';
-				$.each($("#contact-form .val"), function(i,v) {
-					var title = $(v).attr('title');
-					var value = $(v).val();
-					if(title == value)
-					{
-						error += "Please complete your " + value + '<br/>';
-					}
-				});
-				
-				if(error)
-				{	
-					$('#form-message').html('<span class="error">'+error+'</span>');
-					return false;
-				}
-			},
-			success: function(data)
-			{
-				if (data.match(/<title>Error<\/title>/))
-				{
-					var error = $(data).find('ul li:first').text();
-					$('#form-message').html('<span class="error">'+error+'</span>');
-				}
-				else
-				{
-					$('#contact-form').hide();
-					$('#form-message').html('Thank you for your interest.<br/>Your email has been sent.');
-				}
-			},
-			dataType: 'html'
+				$(this).children().hide().fadeIn(200);
+				history.pushState(null, $title, $url);
+				document.title = $title;
+			});
 		});
-
+		$(document).ajaxSend(function(e, jqXHR)
+		{
+			$('.product').fadeOut(200,function()
+			{
+				$('#products').html('<div id="loading" />');
+			})
+		});
+	}
+	
+	/***********************************
+	Product On-Page Filter
+	***********************************/
+	if ($('.shop #nav_categories').length > 0)
+	{
+		if(document.location.hash != "")
+		{
+			$('#products').children().hide();
+			$('#products .'+document.location.hash.split('#')[1]).show();
+			$(document.location.hash).prop('checked',true)
+		}
+		$('#nav_categories input').click(function()
+		{
+			$input = $(this);
+			if($input.is(':checked'))
+			{
+				var group = "input:checkbox[name='" + $(this).attr("name") + "']";
+				$(group).prop("checked", false);
+				$input.prop("checked", true);
+				$val = $input.val();
+				$('#products').fadeOut(400,function()
+				{
+					$('#products').children().hide();
+					$('#products .'+$val).show();
+					$('#products').fadeIn(400);
+					document.location.hash = $val;
+				});
+			}
+			else
+			{
+				$input.prop("checked", false);
+				$('#products').fadeOut(400,function()
+				{
+					$('#products').children().show();
+					$('#products').fadeIn(400);
+					history.pushState(null, document.title, document.location.href.split('#')[0]);
+				});
+			}
+		});
 	}
 	
 	/******************************
 	Responsive Menu
 	******************************/
-	$('#menu-toggle').toggle(
-		function()
+	$('#header-main-menu').meanmenu(
+	{
+		meanScreenWidth: "580"
+	});
+	
+	
+	/***********************************
+	Slideshows
+	***********************************/
+	/* Home Slideshow */
+	if ($('#home-slideshow').length > 0)
+	{
+		$('#home-slideshow').cycle(
 		{
-			$('#header-main-menu > ul').fadeIn(100);
-			$('#menu-toggle').addClass("active");
-			return false;
+			log					:	false,
+			slides				:	'> .slide',
+			next				:	'.cycle-next',
+			prev				:	'.cycle-prev',
+			pager				:	'.cycle-pager',
+			pagerEvent			:	'mouseover.cycle',
+			pagerTemplate		:	'<span></span>',
+			pauseOnHover		:	true,
+			timeout				:	9000
+		});
+		$('#home-slideshow').hover(function()
+		{
+			$('.slideshow-control').fadeIn();
 		},
 		function()
 		{
-			$('#header-main-menu > ul').fadeOut(100);
-			$('#menu-toggle').removeClass("active");
-			return false;
-		}
-	);
+			$('.slideshow-control').fadeOut();
+		});
+	}
 	
-	/******************************
-	Popups - prettyPhoto
-	******************************/
-	
-	$("a.popup").prettyPhoto(
+	/* Product Slideshow */
+	if ($('#product-slideshow').length > 0)
 	{
-		default_width: 697,
-		default_height: 392,
-		theme: 'dark_rounded'
-	});
+		$('#product-slideshow').cycle(
+		{
+			log 			: 	false,
+			slides			:	'> .slide',
+			pager			:	'.cycle-pager',
+			pagerEvent		:	'mouseover.cycle',
+			pagerTemplate	:	'<img src="{{children.0.src}}" width="85" class="col slide-thumb" />',
+			pauseOnHover	:	true
+		});
+	}
 	
 	/******************************
 	ios-viewport-scaling-bug-fix.js
-	******************************/
+	*****************************
 	(function(doc)
 	{
 	 
@@ -137,19 +306,19 @@ $(document).ready(function()
 			scales = [.25, 1.6];
 			doc[addEvent](type, fix, true);
 		}
-	}(document));
+	}(document));*/
 	
 	/******************************
 	COOKIE NOTICE
 	******************************/
 	if(getCookie('show_cookie_message') != 'no')
 	{
-		$('#cookie_box').show();
+		$('#cookie_box').addClass('visible');
 	}
 
 	$('.cookie_box_close').click(function()
 	{
-		$('#cookie_box').fadeOut("slow");
+		$('#cookie_box').removeClass('visible');
 		setCookie('show_cookie_message','no');
 		return false;
 	});

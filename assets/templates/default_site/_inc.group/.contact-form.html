@@ -1,4 +1,4 @@
-{exp:email:contact_form user_recipients="no" recipients="{embed:email}" charset="utf-8" redirect="2" form_id="{embed:id}" form_class="contact_form"}
+{exp:email:contact_form user_recipients="no" charset="utf-8" redirect="2" form_id="{embed:id}" form_class="contact_form"}
 	
 	<input type="hidden" name="required[]" value="Name:" />
 	
@@ -6,12 +6,12 @@
 		
 		<p>
 			<label for="name">Full Name:</label>
-			<input type="text" id="name" name="required[]" title="name" size="40" class="textbox val" />
+			<input type="text" id="name" name="required[]" title="name" size="40" class="required" />
 		</p>
 		
 		<p>
 			<label for="from">Email Address:</label>
-			<input type="text" id="from" name="from" title="email" size="40" class="textbox val" />
+			<input type="text" id="from" name="from" title="email" size="40" class="required" />
 		</p>
 		
 		<input type="hidden" name="required[]" value="" />
@@ -19,13 +19,13 @@
 		
 		<p>
 			<label for="message">Message: </label>
-			<textarea id="message" name="message[]" title="message" class="textarea val" cols="30" rows="7"></textarea>
+			<textarea id="message" name="message[]" title="message" class="required" cols="30" rows="7"></textarea>
 		</p>
 		
 		{if captcha}
 			<p>
-				<label for="captcha">{captcha}</label>
-				<input type="text" id="captcha" name="captcha" maxlength="35" title="" value="" class="textbox" />
+				<label for="captcha" class="captcha">{captcha}</label>
+				<input type="text" id="captcha" name="captcha" maxlength="35" title="" value="" class="required" />
 			</p>
 		{/if}
 		
@@ -37,6 +37,11 @@
 	</p>
 	
 	<input type="hidden" name="subject" value="Enquiry from {site_name}" />
-
 	<div class="form-message"></div>
+	
 {/exp:email:contact_form}
+<div id="contact-form-thank-you" class="hide">
+	{exp:channel:entries channel="snippets" url_title="thank-you-contact-form" dynamic="no" disable="categories|member_data|pagination"}
+		{snippet_body}
+	{/exp:channel:entries}
+</div>

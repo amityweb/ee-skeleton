@@ -16,11 +16,35 @@
 	<priority>0.5</priority> 
 </url>
 
+{if node_title == 'Blog'}
+	{!-- Blog Entries --}
+	{exp:channel:entries channel="blog" dynamic="no" disable="custom_fields|categories|member_data|pagination"} 
+	<url> 
+		<loc>{site_url}blog/{url_title}</loc> 
+		<lastmod>{gmt_edit_date format="{DATE_W3C}"}</lastmod> 
+		<changefreq>weekly</changefreq> 
+		<priority>0.6</priority> 
+	</url> 
+	{/exp:channel:entries}
+{/if}
+
 {if node_title == 'News'}
 	{!-- News Entries --}
 	{exp:channel:entries channel="news" dynamic="no" disable="custom_fields|categories|member_data|pagination"} 
 	<url> 
 		<loc>{site_url}news/{url_title}</loc> 
+		<lastmod>{gmt_edit_date format="{DATE_W3C}"}</lastmod> 
+		<changefreq>weekly</changefreq> 
+		<priority>0.6</priority> 
+	</url> 
+	{/exp:channel:entries}
+{/if}
+
+{if node_title == 'Shop'}
+	{!-- Shop Entries --}
+	{exp:channel:entries channel="products" dynamic="no" disable="custom_fields|categories|member_data|pagination"} 
+	<url> 
+		<loc>{site_url}shop/{url_title}</loc> 
 		<lastmod>{gmt_edit_date format="{DATE_W3C}"}</lastmod> 
 		<changefreq>weekly</changefreq> 
 		<priority>0.6</priority> 

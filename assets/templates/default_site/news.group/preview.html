@@ -1,0 +1,17 @@
+{if logged_out}
+	{redirect="404"} 
+{/if}
+{embed="_inc/.header"}
+
+{exp:channel:entries channel="news" status="open|closed" entry_id="{segment_3}" disable="categories|member_data|pagination"}
+		
+	<h1>{title}</h1>
+	<p class="lowlight">Written by {author} on {entry_date format="%l %d %F %Y"}</p>
+	
+	{exp:low_widont}{news_body}{/exp:low_widont}
+	
+{/exp:channel:entries}
+
+{embed="_inc/.social_buttons"}
+
+{embed="_inc/.footer"}

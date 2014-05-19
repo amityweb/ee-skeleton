@@ -1,0 +1,15 @@
+<div id="breadcrumbs" class="left twelvecol breadcrumbs">
+	
+	<a href="/" class="breadcrumb">Home</a> / 
+	
+	{if segment_2 != ""}
+		{exp:channel:entries url_title="{segment_1}" dynamic="no" disable="custom_fields|categories|member_data|pagination"}
+			 <a href="/{url_title}" class="breadcrumb">{title}</a> / 
+		{/exp:channel:entries}
+	{/if}
+
+{exp:channel:entries url_title="{last_segment}" dynamic="no" disable="custom_fields|categories|member_data|pagination"}
+	 <span class="breadcrumb">{title}</span>
+{/exp:channel:entries}
+
+</div>

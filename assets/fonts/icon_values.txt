@@ -1,0 +1,20 @@
+Arrows
+classic arrow left			\a000
+classic arrow right			\a001
+triangle in circle left		\a002
+triangle in circle right	\a003
+chevron left				\a004
+chevron right				\a005
+chevron in circle left		\a006
+chevron in circle right		\a007
+
+Pagers
+circle						\e000
+empty circle				\e001
+rounded square				\e002
+empty rounded square		\e003
+rounded box dot				\e004
+rounded box no dot			\e005
+
+Misc
+close button				\e600

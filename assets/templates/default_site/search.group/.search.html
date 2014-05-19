@@ -5,16 +5,12 @@
 	no_result_page="search/no-results"
 	search_in="everywhere"
 	status="not closed"
-	channel="news|content"
+	channel="blog|news|content"
 	where="any"
 }
 	<p>
-		<input type="text" id="search" name="keywords" value="Search" onfocus="if(this.value == 'Search'){this.value = '';}" onblur="if(this.value == ''){this.value='Search';}" title="To search for a phrase, place the words inside double quotes.
+		<input type="text" id="search" name="keywords" placeholder="Search" title="To search for a phrase, place the words inside double quotes.
 To search for entries without certain words or phrases, place a negative sign (-) before it."/>
 		<input type="submit" value="Search"/>
 	</p>
 {/exp:search:simple_form}
-
-<h2>Search tips:</h2>
-<p>To search for a phrase, place the words inside double quotes.</p>
-<p>To search for entries without certain words or phrases, place a negative sign (-) before it.</p>

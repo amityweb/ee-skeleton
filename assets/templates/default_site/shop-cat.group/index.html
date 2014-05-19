@@ -1,0 +1,50 @@
+{if segment_2 == "all-products"}{preload_replace:categories=""}{/if}
+{preload_replace:categories="category='{segment_2_category_id}'"}
+{embed="_inc/.header" sidebar="false"}
+	
+	<div id="product-sidebar" class="col threecol fullland">
+		<div id="cart-info" class="left twelvecol">
+			<a href="/cart" class="left fivecol">Cart: {exp:cartthrob:total_items_count}</a>
+			{if "{exp:cartthrob:total_items_count}" != 0}
+				<span class="left sevencol">Total: {exp:cartthrob:cart_total}</span>
+			{/if}
+		</div>
+		<div class="left twelvecol">
+			{exp:channel:categories channel="products" show_empty="no" id="product-filter" class="menu"}
+				{if count == "1"}
+					<a href="/{segment_1}" title="View all categories" class="filter">All Categories</a></li><li>
+				{/if}
+				<a href="/{segment_1}/{category_url_title}" title="Products filtered by {category_name}" class="filter">{category_name}</a>
+				{if count == total_results}
+					</li><li><a href="/{segment_1}/all-products" title="View all products" class="filter">All Products</a>
+				{/if}
+			{/exp:channel:categories}
+		</div>
+	</div>
+	
+<div id="products" class="col-wrap ninecol">
+	{if segment_2 == ""}
+		{exp:channel:categories channel="products" show_empty="no" style="linear"}
+			<a href="/{segment_1}/{category_url_title}" title="View full details of {category_name}" class="col fourcol product category-group">
+				<img src="{category_image}" alt="{category_name}" width="234" height="234" />
+				<span class="left twelvecol">{category_name}</span>
+				{if category_description}
+					<span class="left twelvecol">{category_description}</span>
+				{/if}
+			</a>
+		{/exp:channel:categories}
+	{/if}
+	{if segment_2 != ""}
+		{exp:channel:entries channel="products" {categories} orderby="title" sort="asc" dynamic="no" disable="member_data|pagination"}
+			{if product_inventory != 0}
+				<a href="/product/{url_title}" title="View full details of {title}" class="col fourcol product">
+					<img src="{product_thumbnail:thumb}" alt="{title}" width="234" height="234" />
+					<span class="left twelvecol">{title}</span>
+					<span class="left twelvecol">{product_price}</span>
+				</a>
+			{/if}
+		{/exp:channel:entries}
+	{/if}
+</div>
+
+{embed="_inc/.footer" sidebar="false"}

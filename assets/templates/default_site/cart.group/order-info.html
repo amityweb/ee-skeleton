@@ -1,0 +1,54 @@
+{embed="_inc/.header"}
+	{exp:cartthrob:submitted_order_info}
+		{if authorized}
+			<p class="h1">Your payment is a success!</p>
+			<p class="h2">Transaction ID: {transaction_id}</p>
+		{if:elseif declined}
+			<p class="h1">Your credit card was declined:</p>
+			<p class="h2">{error_message}</p>
+		{if:elseif failed}
+			<p class="h1">Your payment failed:</p>
+			<p class="h2">{error_message}</p>
+		{/if}
+		
+		{exp:channel:entries channel="orders" entry_id="{order_id}" dynamic="no" disable="categories|member_data|pagination"}
+			<div class="left twelvecol">
+				<p class="h3">
+					Order Number: {title}
+				</p>
+				{exp:cartthrob:order_items order_id="{entry_id}" }
+				<div class="row">
+					<span class="left twelvecol">
+						<span class="bold left">{item:title}</span>
+						<span class="right">Quantity: {item:quantity}</span>
+					</span>
+					<span class="left twelvecol">
+						<span class="left">{if item:product_size}{item:product_size}, {/if}{item:product_colour}</span>
+						<span class="right">{item:price_plus_tax}</span>
+					</span>
+				</div>
+				{/exp:cartthrob:order_items}
+				<span class="left twelvecol text-right">
+					Subtotal: {order_subtotal}<br />
+					{if "{order_discount}" != "&pound;0.00"}Discount: {order_discount}<br />{/if}
+					Shipping: {order_shipping}<br />
+					VAT: {order_tax}<br />
+					<span class="bold">Total: {order_total}</span>
+				</span>
+			</div>
+		{/exp:channel:entries}
+		
+		<p class="text-center">
+			<a href="javascript:window.print()" id="print-button" class="button uppercase">Print this page</a><br />
+			{if authorized}
+				<a href="/shop" class="button large headway uppercase prominent">Continue Shopping</a>
+				{if logged_in}
+					<br /><a href="/members" class="button headway uppercase">Account</a>
+				{/if}
+			{if:else}
+				<a href="/cart" class="button large headway uppercase">Checkout Again</a>
+			{/if}
+		</p>
+						
+	{/exp:cartthrob:submitted_order_info}		
+{embed="_inc/.footer"}

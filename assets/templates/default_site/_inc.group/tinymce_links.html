@@ -2,8 +2,24 @@ var tinyMCELinkList = new Array(
 {exp:channel:entries channel="content" url_title="not home" disable="custom_fields|categories|member_data|pagination" dynamic="no" orderby="title" sort="asc"}
 ["{title}", "/{url_title}"],
 {/exp:channel:entries}
-["--News--", ""],
-{exp:channel:entries channel="news" disable="custom_fields|categories|member_data|pagination" dynamic="no" orderby="title" sort="asc" backspace="2"}
-["{title}", "/news/article/{url_title}"],
+["--Blog--", ""],
+{exp:channel:entries channel="blog" disable="custom_fields|categories|member_data|pagination" dynamic="no" orderby="title" sort="asc"}
+["{title}", "/blog/{url_title}"],
 {/exp:channel:entries}
+["--News--", ""],
+{exp:channel:entries channel="news" disable="custom_fields|categories|member_data|pagination" dynamic="no" orderby="title" sort="asc"}
+["{title}", "/news/{url_title}"],
+{/exp:channel:entries}
+["--Products--", ""],
+{exp:channel:entries channel="products" disable="custom_fields|categories|member_data|pagination" dynamic="no" orderby="title" sort="asc"}
+["{title}", "/products/{url_title}"],
+{/exp:channel:entries}
+["--Gallery--", ""],
+{exp:channel:entries channel="gallery" disable="custom_fields|categories|member_data|pagination" dynamic="no" orderby="title" sort="asc"}
+["{title}", "/gallery/{url_title}"],
+{/exp:channel:entries}
+["--Downloads--", ""],
+{exp:file:entries directory_id="19" backspace="2" disable="categories|pagination"}
+["{title}", "{file_url}"],
+{/exp:file:entries}
 );

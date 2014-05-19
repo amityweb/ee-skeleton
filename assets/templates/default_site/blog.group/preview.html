@@ -1,0 +1,8 @@
+{if logged_out}
+	{redirect="404"} 
+{/if}
+{embed="_inc/.header"}
+
+{embed="blog/.entry" params="status='open|closed' entry_id='{segment_3}'"}
+
+{embed="_inc/.footer"}

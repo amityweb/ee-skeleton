@@ -14,7 +14,7 @@ if (preg_match("#^P(\d+)|/P(\d+)#",$entry,$matches) )
 <?php endif; ?>
 {!-- If its a not paginated page, and not a page with custom titles, use the SEO Lite entries
 --}<?php if(!isset($list) || !$list) : ?>
-{if segment_2 != '' && segment_1 != 'shapers-index'}
+{if segment_2 != ''}
 {exp:seo_lite use_last_segment="yes" friendly_segments="y" default_title='<?php echo ucwords("{segment_2}");?>' default_keywords='' default_description='' }
 {/if}
 {if segment_1 != '' &&  segment_2 == ''}

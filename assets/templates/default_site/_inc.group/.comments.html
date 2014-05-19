@@ -1,0 +1,45 @@
+<div id="comments" class="left twelvecol">
+	
+	{exp:comment:entries sort="asc"}
+		{if count == 1}
+		<h2>Comments</h2>
+		{/if}
+		
+		<div class="comment row{if group_id == 1 || group_id == 6} admin{/if}">
+	    	<div class="left twelvecol comment-author">
+				{name}
+	    		<span class="right comment-date">{comment_date format="%d/%m/%Y"}</span>
+			</div>
+	    	<p class="comment-text">{comment}</p>
+		</div>
+	{/exp:comment:entries}
+
+</div>
+
+{exp:comment:form channel="blog" form_class="uniform"}
+
+        {if logged_out}
+                <label for="name">Name:</label> <input type="text" name="name" value="{name}" size="50" /><br />
+                <label for="email">Email:</label> <input type="text" name="email" value="{email}" size="50" /><br />
+        {/if}
+
+        <label for="comment">Comment:</label><br />
+        <textarea name="comment" cols="70" rows="10">{comment}</textarea>
+        {if logged_out}
+	        <div class="left sixcol">
+				<input type="checkbox" name="save_info" id="save_info" value="yes" {save_info} />
+				<label for="save_info" class="checkbox">Remember my personal information</label>
+			</div>
+	        <div class="left sixcol">
+				<input type="checkbox" name="notify_me" id="notify_me" value="yes" {notify_me} />
+				<label for="notify_me" class="checkbox">Notify me of follow-up comments?</label>
+			</div>
+        {/if}
+
+        {if captcha}
+                <p>{captcha}<input type="text" name="captcha" value="{captcha_word}" maxlength="20" /></p>
+        {/if}
+
+        <input type="submit" name="submit" value="Submit" />
+
+{/exp:comment:form}

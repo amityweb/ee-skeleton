@@ -1,17 +1,15 @@
 <div class="index-list">
 
 	{exp:channel:entries channel="news" limit="{embed:limit}" dynamic="no" paginate="bottom" disable="categories|member_data"}
-		<div class="row">
+		<div class="col-wrap twelvecol article">
 			{if news_image}
-				<div class="left twocol rigid noland">
-					<a href="/news/{url_title}" title="{title}">
-						{news_image}
-							<img src="{url:index}" width="82" />
-						{/news_image}
+				<div class="col fourcol right text-right nomob">
+					<a href="/news/{url_title}"{if news_index_image_link_title} title="{news_index_image_link_title}"{/if}>
+						<img src="{news_image:index}" width="190" alt="{news_index_image_alt}"{if news_index_image_title} title="{news_index_image_title}"{/if} />
 					</a>
 				</div>
 			{/if}
-			<div class="left{if news_image} tencol{/if}">
+			<div class="col{if news_image} eightcol{/if}">
 				<p class="h2"><a href="/news/{url_title}" title="{title}">{title}</a></p>
 				<p>
 					{exp:low_widont}{news_summary}{/exp:low_widont}
@@ -24,11 +22,11 @@
 		{paginate}
 			{if embed:paginate == "true"}
 
-				<div class="pagination left twelvecol">
-					<div class="left">
-						Page {current_page} of {total_pages}
-					</div>
-					<div class="right">
+				<div class="pagination left twelvecol text-center">
+					{if previous_page}
+						<a href="{auto_path}" class="left newer">Newer</a>
+					{/if}
+					<div class="page-numbers">
 						{pagination_links}
 							{page}
 								{if current_page}
@@ -39,11 +37,15 @@
 							{/page}
 						{/pagination_links}
 					</div>
+					{if next_page}
+						<a href="{auto_path}" class="right older">Older</a>
+					{/if}
 				</div>
 				
 			{/if}
 		{/paginate}
-		
+
+
 	{/exp:channel:entries}
 	{if embed:link_to_list == "true"}
 		<a href="/news" class="all-news">Read more news</a>

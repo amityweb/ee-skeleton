@@ -1,0 +1,14 @@
+#header-main-menu,
+#sidebar,
+#footer-social,
+#footer-menu,
+#cookie_box,
+.button
+{
+	display: none !important;
+}
+
+#content
+{
+	width: 98%;
+}

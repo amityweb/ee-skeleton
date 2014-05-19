@@ -1,0 +1,74 @@
+{embed="_inc/.header" sidebar="off"}
+
+	
+	{if segment_2 == ""}{!-- Gallery Index --}
+		
+		{exp:channel:entries channel="content" url_title="{last_segment}" dynamic="no" disable="categories|member_data|pagination"}
+			<h1>{title}</h1>
+			{content_body}
+		{/exp:channel:entries}
+		
+		<div class="col-wrap twelvecol gallery-category">
+		{exp:channel:entries channel="gallery" dynamic="no" disable="categories|member_data|pagination"}
+			
+			<div class="gallery-container">
+			
+				<div class="gallery-thumb">
+			
+					<a href="/{segment_1}/{url_title}" title="{gallery_thumbnail_title}">
+						{exp:imgsizer2:size src="{gallery_thumbnail}" auto_s="225" alt="{gallery_thumbnail_alt}"}
+				        	<img src="{sized}" width="{width}" height="{height}" />
+				        {/exp:imgsizer2:size}
+					</a>
+				
+				</div>
+				
+				<div class="gallery-title">
+					{title}
+				</div>
+					
+			</div>
+			
+		{/exp:channel:entries}
+		</div>
+
+	{/if}
+	
+	{if segment_2 != ""}{!-- Gallery Page --}
+		
+		{exp:channel:entries channel="gallery" url_title="{last_segment}" dynamic="no" disable="categories|member_data|pagination"}
+			{if no_results}{redirect="404"}{/if}
+			
+			<h1>{title}</h1>
+
+			{gallery_description}
+			
+			<div class="col-wrap twelvecol gallery-image">
+				
+			{gallery_images}
+
+				<div class="gallery-container">
+				
+					<div class="gallery-thumb">
+					
+						<a href="{gallery_images:image}" title="{gallery_images:description}" class="popup">
+						{exp:imgsizer2:size src="{gallery_images:image}" auto_s="100"}
+				        	<img src="{sized}" width="{width}" height="{height}"/>
+				        {/exp:imgsizer2:size}
+						</a>
+						
+					</div>
+						
+				</div>
+        
+			{/gallery_images}
+
+			</div>
+			
+		{/exp:channel:entries}
+		
+		{embed="_inc/.social_buttons"}
+		
+	{/if}
+
+{embed="_inc/.footer" sidebar="off"}

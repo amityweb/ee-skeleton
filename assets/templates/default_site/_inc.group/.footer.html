@@ -1,35 +1,77 @@
 			</div>
-			
+			{if embed:sidebar == ""}
+				<div id="sidebar" class="col threecol fullland">
+					{if segment_1 == "blog"}
+						<h3>Recent posts</h3>
+						<ul>
+							{exp:channel:entries channel="blog" limit="5" dynamic="no" disable="categories|custom_fields|pagination|member_data"}
+								<li>
+									<a href="/blog/{url_title}" title="{title}">{title}</a>
+								</li>
+							{/exp:channel:entries}
+						</ul>
+						<hr />
+						<h3>Categories</h3>
+						{exp:channel:categories channel="blog" disable="category_fields"}
+							<a href="/blog/category/{category_url_title}">{category_name}</a>
+						{/exp:channel:categories}
+						<hr />
+						<h3>Archive</h3>
+						<ul>
+						{exp:channel:month_links channel="blog" limit="50"}
+							<li><a href="{path='blog/archives'}">{month} {year}</a></li>
+						{/exp:channel:month_links}
+						</ul>
+						<hr />
+					{/if}
+					{if segment_1 != "blog"}
+						
+						{!-- Generic Sidebar --}
+						
+					{/if}
+				</div>
+			{/if}
 		</div>
 
 	</div>
 	
 	<div id="footer" class="left twelvecol">
-	
 		<div id="footer-inner" class="inner">
+			<div class="col twelvecol">	
+				<div id="footer-copyright" class="left twelvecol">
+					{exp:channel:entries
+						channel="snippets"
+						url_title="copyright"
+						dynamic="no"
+						disable="categories|member_data|pagination"
+					}
+						<p>&copy; {current_time format="%Y"} {snippet_body}</p>
+					{/exp:channel:entries}
+				</div>
 	
-			<div id="footer-menu">
-				{exp:taxonomy:nav tree_id="1" display_root="no"}
-					<a href="{node_url}" title="{node_title}">{node_title}</a> 
-				{/exp:taxonomy:nav}
+				<div id="footer-menu" class="left twelvecol">
+					{exp:taxonomy:nav tree_id="2" display_root="no" ul_css_class="menu"}
+						<a href="{node_url}"{if link_title} title="{link_title}"{/if}>{node_title}</a>
+					{/exp:taxonomy:nav}
+				</div>
 			</div>
-	
-			<div id="footer-copyright">
-				{exp:channel:entries channel="snippets" url_title="copyright" dynamic="no" disable="categories|member_data|pagination"}
-				{content_body}
-			{/exp:channel:entries}
-			</div>
-			
 		</div>
-		
 	</div>
 	
-	<div id="cookie_box">Our site requires cookies to function, <a href="/cookie-policy">click here</a> for more information <a href="#" class="cookie_box_close">Close [X]</a></div>
+	{if logged_out}
+		<div id="cookie_box">
+			<p>Our site requires cookies to function, <a href="/cookie-policy">click here</a> for more information <a href="#" class="cookie_box_close"></a></p>
+		</div>
+	{/if}
 
+{if (segment_1 == "blog" || segment_1 == "news") && segment_2 == ""}
+<script src="/assets/js/jquery.infinitescroll.min.js" type="text/javascript"></script>
+{/if}
 {exp:minimee:js}
 <script src="/assets/js/jquery.form.js" type="text/javascript"></script>
-<script src="/assets/js/jquery.cycle.all.js" type="text/javascript"></script>
-<script src="/assets/js/jquery.prettyPhoto.js" type="text/javascript"></script>
+<script src="/assets/js/jquery.cycle2.min.js" type="text/javascript"></script>
+<script src="/assets/js/jquery.meanmenu.2.0.min.js" type="text/javascript"></script>
+<script src="/assets/js/jquery.magnific-popup.js" type="text/javascript"></script>
 <script src="/assets/js/doc.ready.js" type="text/javascript"></script>
 {/exp:minimee:js}
 

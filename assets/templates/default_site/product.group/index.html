@@ -1,0 +1,90 @@
+{embed="_inc/.header" sidebar="false" twocol="true"}
+	
+	{exp:channel:entries
+		channel="products"
+		url_title="{last_segment}"
+		show_expired="yes"
+		dynamic="no"
+		disable="categories|member_data|pagination"
+	}
+		<div class="col sixcol">
+			{exp:cartthrob:add_to_cart_form 
+				entry_id="{entry_id}"
+				return="cart"
+			}
+				<h1>{title}</h1>
+				<span class="row price">
+					{if product_original_price}<span class="original-price">{product_original_price:plus_tax}</span>{/if} {product_price:plus_tax}
+					<br />
+					{if no_shipping == "No"}
+						<span class="shipping-price">
+							Shipping: {if product_shipping:plus_tax == "&pound;0.00"}Free!{if:else}{product_shipping:plus_tax}{/if}
+						</span>
+					{/if}
+					{if product_shipping_notes}<span class="shipping-note">{product_shipping_notes}</span>{/if}
+				</span>
+				
+				{product_description}
+				
+				{exp:cartthrob:item_options entry_id="{entry_id}"}
+					{if options_exist}
+						<div class="product-options">
+							<p class="h3">{option_label}</p>
+							<ul class="menu">
+								{options}
+									<li>
+										<input type="radio" title="item_options[{option_field}]" name="item_options[{option_field}]" value="{option_value}"{if option_first_row} checked="checked"{/if} id="{option_value}-{count}" />
+										<label for="{option_value}-{count}">
+											{option_name}
+											{if option_price_numeric > 0}
+												{if product_price:numeric != "0" OR option_field != "product_options"}
+													+
+												{/if}
+												{option_price}
+											{/if}
+										</label>
+									</li>
+								{/options}
+							</ul>
+						</div>
+					{/if}
+				{/exp:cartthrob:item_options}
+				
+				{if product_inventory == 0}
+					<p class="error uppercase">Sold out!</p>
+				{if:else}
+					<input type="submit" value="Add To Cart" />
+					{if product_add_to_cart_note}<div class="headway add-to-cart-note">{product_add_to_cart_note}</div>{/if}
+				{/if}
+				
+				{embed="_inc/.social_buttons"}
+				
+			{/exp:cartthrob:add_to_cart_form}
+			
+		</div>
+		
+		<div id="product-slideshow" class="col sixcol">
+			{product_detail_images}
+				<a href="{product_detail_images:zoom_image}" class="left twelvecol slide slide{product_detail_images:count} modal">
+					<img {product_detail_images:image}src="{url}" width="{width}" height="{height}"{/product_detail_images:image} alt="{product_detail_images:image_alt}"{if product_detail_images:image_title} title="{product_detail_images:image_title}"{/if} />
+				</a>
+				{if product_detail_images:count == product_detail_images:field_total_rows AND product_detail_images:field_total_rows > 1}
+					<div class="col-wrap twelvecol cycle-pager"></div>
+				{/if}												
+			{/product_detail_images}
+		</div>
+		
+		<div id="related-products" class="col-wrap twelvecol">
+			{related_projects_heading}{!-- Template Snippet --}
+			{product_related}
+				<a href="/product/{product_related:url_title}" title="View full details of {product_related:title}" class="col threecol product">
+					<img src="{product_related:product_thumbnail:thumb}" alt="{product_related:title}" width="234" height="234" />
+					<span class="left twelvecol">{product_related:title}</span>
+					<span class="left twelvecol">{product_related:product_price}</span>
+				</a>
+			{/product_related}
+		</div>
+		
+	{/exp:channel:entries}
+
+{embed="_inc/.footer" sidebar="false"}

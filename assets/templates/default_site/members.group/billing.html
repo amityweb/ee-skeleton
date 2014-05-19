@@ -1,0 +1,152 @@
+{if logged_out}
+	{redirect="members"}
+{/if}
+
+{embed="_inc/.header"}
+
+{if segment_3 == "success"}
+{exp:flash_message:set message="Details saved successfully"}
+{redirect="/members/billing"}
+{/if}
+
+{if segment_3 == ""}
+<h1>Edit Addresses</h1>
+
+{exp:freemember:update_profile
+	return="/members/billing/success"
+	form_class="uniform"
+	error_handling="inline"
+	error_delimiters='<span class="col twelvecol error">|</span>'
+	require="first_name|last_name"
+}
+
+<div class="col-wrap twelvecol">
+		
+		<div class="col twelvecol">
+			<h2>Billing Details</h2>
+		</div>
+		
+		<div class="col sixcol">
+			<label for="company">Company</label>
+			{field:company}
+			{error:company}
+		</div>
+
+		<div class="col sixcol">
+			<label for="first_name">First Name</label>
+			{field:first_name}
+			{error:first_name}
+		</div>
+			
+		<div class="col sixcol">
+			<label for="last_name">Last Name</label>
+			{field:last_name}
+			{error:last_name}
+		</div>
+		<div class="col sixcol">
+			<label for="phone">Phone Number</label>
+			{field:telephone}
+			{error:telephone}
+		</div>
+	
+		<div class="col sixcol">
+			<label for="email">Email</label>
+			{field:email}
+			{error:email}
+		</div>
+
+
+		<div class="col sixcol">
+			<label for="address">Address</label>
+			{field:address}
+			{error:address}
+		</div>
+		<div class="col sixcol">
+			<label for="address_2">Address Line 2</label>
+			{field:address2}
+			{error:address2}
+		</div>
+		<div class="col sixcol">
+			<label for="city">City</label>
+			{field:city}
+			{error:city}
+		</div>
+		<div class="col sixcol">
+			<label for="county">County</label>
+			{field:county}
+			{error:county}
+		</div>
+		<div class="col sixcol">
+			<label for="country">Country</label>
+			{field:country}
+			{error:country}
+		</div>
+		<div class="col sixcol">
+			<label for="postcode">Postcode</label>
+			{field:postcode}
+			{error:postcode}
+		</div>
+
+	</div>
+
+	<div class="col-wrap twelvecol">&nbsp;</div>
+
+	<div class="col-wrap twelvecol">
+
+		<div class="col twelvecol">
+			<h2>Shipping Details</h2>
+		</div>
+		
+	
+		<div class="col sixcol">
+			<label for="shipping_first_name">First Name</label>
+			{field:shipping_first_name}
+			{error:shipping_first_name}
+		</div>
+		
+		<div class="col sixcol">
+			<label for="shipping_last_name">Last Name</label>
+			{field:shipping_last_name}
+			{error:shipping_last_name}
+		</div>
+
+		<div class="col sixcol">
+			<label for="shipping_address">Address</label>
+			{field:shipping_address}
+			{error:shipping_address}
+		</div>
+		<div class="col sixcol">
+			<label for="shipping_address_2">Address Line 2</label>
+			{field:shipping_address2}
+			{error:shipping_address2}
+		</div>
+		<div class="col sixcol">
+			<label for="shipping_city">City</label>
+			{field:shipping_city}
+			{error:shipping_city}
+		</div>
+		<div class="col sixcol">
+			<label for="shipping_county">County</label>
+			{field:shipping_county}
+			{error:shipping_county}
+		</div>
+		<div class="col sixcol">
+			<label for="shipping_country">Country</label>
+			{field:shipping_country}
+			{error:shipping_country}
+		</div>
+		<div class="col sixcol">
+			<label for="shipping_postcode">Postcode</label>
+			{field:shipping_postcode}
+			{error:shipping_postcode}
+		</div>
+	
+		<div class="col twelvecol">
+			<input type="submit" value="Submit" />
+		</div>
+
+	</div>
+	
+{/exp:freemember:update_profile}
+
+{embed="_inc/.footer"}

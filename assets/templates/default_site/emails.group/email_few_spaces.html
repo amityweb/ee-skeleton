@@ -1,0 +1,8 @@
+<p>The are only a few spaces available for item number {entry_id}.</p>
+
+{exp:channel:entries entry_id="{entry_id}"}
+
+<p>{title}</p>
+<p>{if product_start_date}{product_start_date format="%j%S %M"} to {/if}{expiration_date format="%j%S %M %Y"} in {product_location}</p>
+
+{/exp:channel:entries}
