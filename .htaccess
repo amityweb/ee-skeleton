@@ -122,6 +122,9 @@ RewriteBase /
 RewriteCond %{HTTP_HOST} !^thedomain.co.ukk$ [NC]
 RewriteRule ^(.*)$ http://thedomain.co.uk/$1 [R=301,L] 
 
+# Redirect trailing slash to without
+RewriteRule ^(.+)/$ $1 [L,NC,R=301]
+
 RewriteCond $1 !\.(gif|jpe?g|png)$ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
