@@ -119,7 +119,7 @@ RewriteEngine On
 RewriteBase /
 
 # Redirect to one and only domain used
-RewriteCond %{HTTP_HOST} !^thedomain.co.ukk$ [NC]
+RewriteCond %{HTTP_HOST} !^thedomain.co.uk$ [NC]
 RewriteRule ^(.*)$ http://thedomain.co.uk/$1 [R=301,L] 
 
 # Redirect trailing slash to without
