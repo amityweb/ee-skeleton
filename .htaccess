@@ -128,6 +128,13 @@ SetEnvIfNoCase Referer darodar.com spambot=yes
 SetEnvIfNoCase Referer 7makemoneyonline.com spambot=yes
 SetEnvIfNoCase Referer myftpupload.com spambot=yes
 SetEnvIfNoCase Referer priceg.com spambot=yes
+SetEnvIfNoCase Referer fbdownloader.com spammer=yes
+SetEnvIfNoCase Referer descargar-musicas-gratis.com spammer=yes
+SetEnvIfNoCase Referer baixar-musicas-gratis.com spammer=yes
+SetEnvIfNoCase Referer savetubevideo.com spammer=yes
+SetEnvIfNoCase Referer srecorder.com spammer=yes
+SetEnvIfNoCase Referer kambasoft.com spammer=yes
+
 Order allow,deny
 Allow from all
 Deny from env=spambot
