@@ -1,0 +1,41 @@
+{embed="_inc/.header" sidebar="off"}
+
+	<div id="home-slideshow" class="left twelvecol text-center">
+		{exp:channel:entries
+			channel="slideshows"
+			url_title="home-slideshow"
+			dynamic="no"
+			disable="categories|member_data|pagination"
+		}
+			{slide}
+				<div class="left twelvecol slide slide{slide:count}">
+					{if slide:link}<a href="{slide:link}"{if slide:link_title} title="{slide:link_title}"{/if}>{/if}
+						<img src="{slide:image}" alt="{slide:image_alt}"{if slide:image_title} title="{slide:image_title}"{/if} width="990" height="300" />
+					{if slide:link}</a>{/if}
+				</div>
+			{/slide}
+		{/exp:channel:entries}
+		
+		<div class="cycle-pager icomoon icomoon-pager slideshow-control"></div>
+		<div class="cycle-prev icomoon slideshow-control"></div>
+		<div class="cycle-next icomoon slideshow-control"></div>
+
+	</div>
+
+	<div class="row">
+		{exp:channel:entries
+			channel="content"
+			url_title="home"
+			dynamic="no"
+			disable="categories|member_data|pagination"
+		}
+			{content_body}
+		{/exp:channel:entries}
+	</div>
+
+	{!-------------------------
+	FEATURED PRODUCTS
+	---------------------------}
+	{embed="_inc/.featured-products"}
+
+{embed="_inc/.footer" sidebar="off"}
